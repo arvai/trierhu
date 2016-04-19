@@ -1,2 +1,1 @@
-# trierhu
-TrierHU car sharing on Angular2
+# trierhu nextbus countdown
