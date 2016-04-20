@@ -1,3 +1,71 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+// Clear
+html {
+	font-size: 10px;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+// Common
 body {
-	background: grey;
+	width: 100%;
+	height: 100%;
+	font-family: 'Roboto', sans-serif;
+}
+
+// Index page
+.index {
+	background: url(./bg.png);
+
+
+	.billboard {
+		display: table;
+		height: 60vh;
+		margin: 10vh auto 0 auto;
+
+		&--row {
+			display: table;
+			padding: 2rem;
+			font-size: 8rem;
+			color: #FFF;
+			background: #83AF9B;
+			margin: 0 auto 5rem auto;
+
+			&__green {
+				background: #83AF9B;	
+			}
+
+			&__pink {
+				background: #FE4365;
+				transform: rotate(5deg);
+			}
+
+			&__brick {
+				background: #D95B43;
+				transform: rotate(-5deg);
+			}
+
+		}
+	}
+
+	.ribbon {
+		display: table;
+		padding: 5rem 0;
+		width: 100%;
+		background: white;
+
+		p {
+			display: table-cell;
+			vertical-align: middle;
+			color: black;
+			text-align: center;
+			font-weight: bold;
+			font-size: 62px;
+		}
+	}
 }
