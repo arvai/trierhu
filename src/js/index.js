@@ -36,8 +36,6 @@ class index {
 	* Constructor
 	*/
 	constructor() {
-		this.kamutime = moment.default('22:02', 'hh:mm');
-
 		let displayEl    = document.querySelector('.ribbon p');
 
 		displayEl.innerHTML = this.getCountdownStr();
@@ -57,7 +55,7 @@ class index {
 		let nextbus = this.getNextBus();
 
 		if (nextbus) {
-			return moment.default(this.kamutime).to(nextbus);
+			return moment.default().to(nextbus);
 		}
 
 		return 'No more bus\' today :(';		
@@ -71,7 +69,7 @@ class index {
 		for (let item in TIMETABLE) {
 			// Check is timetable item is after now. If yes, that will be the next bus.
 			let busStart = moment.default(TIMETABLE[item], 'hh:mm');
-			let isAfter = busStart.isAfter(this.kamutime);
+			let isAfter = busStart.isAfter();
 
 			if (isAfter) {
 				return busStart;	
