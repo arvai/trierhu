@@ -41,7 +41,7 @@ gulp.task('bundle', ['es6'], function() {
 				// Uglify bundle
 				new plugin.optimize.UglifyJsPlugin(),
 				// Only english locale for MomentJS
-				new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+				new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/)
 			]
 		}))
 		.pipe(gulp.dest('bin/'));
