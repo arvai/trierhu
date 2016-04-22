@@ -3,7 +3,7 @@ $NODEMODULES = "/node_modules"
 #rm -rf /node_modules
 
 
-if [ -d "$NODEMODULES" ]; then
+if [ ! -d "$NODEMODULES" ]; then
 	npm install
 fi
 
