@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "The next bus goes to Trier in...",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build" : "gulp"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/arvai/trierhu.git"
