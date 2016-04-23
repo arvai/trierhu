@@ -5,6 +5,8 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var webpack = require('webpack-stream');
 var plugin = require('webpack');
+var gulpif = require('gulp-if');
+var argv = require('yargs').argv;
 
 // Default task, full build process
 gulp.task('default', ['bundle', 'sass', 'copy-static']);
@@ -12,9 +14,9 @@ gulp.task('default', ['bundle', 'sass', 'copy-static']);
 // SASS build
 gulp.task('sass', function() {
 	return gulp.src('src/scss/*.scss')
-		.pipe(sourcemaps.init())
+		.pipe(gulpif( argv.dev, sourcemaps.init()))
 		.pipe(sass({outputStyle: 'compressed'}))
-		.pipe(sourcemaps.write())
+		.pipe(gulpif(argv.dev, sourcemaps.write()))
 
 		.pipe(concat('site.css'))
 		.pipe(gulp.dest('bin'))
