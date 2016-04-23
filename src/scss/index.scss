@@ -7,9 +7,6 @@ $myPink: #FE4365;
 $brick: #D95B43;
 
 // Clear
-html {
-	font-size: 10px;
-}
 * {
 	margin: 0;
 	padding: 0;
@@ -17,6 +14,13 @@ html {
 }
 
 // Common
+html {
+	font-size: 10px;
+
+	@media screen and (max-width: 700px) {
+ 		font-size: 6px;
+	}
+}
 body {
 	width: 100%;
 	height: 100%;
@@ -79,7 +83,7 @@ body {
 			color: black;
 			text-align: center;
 			font-weight: bold;
-			font-size: 62px;
+			font-size: 6.2rem;
 		}
 	}
 

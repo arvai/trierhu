@@ -4,7 +4,8 @@
   "description": "The next bus goes to Trier in...",
   "main": "index.js",
   "scripts": {
-    "build" : "gulp"
+    "build.dev": "gulp --dev",
+    "build.prod": "gulp --prod"
   },
   "repository": {
     "type": "git",
@@ -21,10 +22,12 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
+    "gulp-if": "^2.0.0",
     "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "webpack": "^1.13.0",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "yargs": "^4.6.0"
   },
   "dependencies": {
     "moment": "^2.13.0"
