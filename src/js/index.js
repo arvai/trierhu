@@ -58,7 +58,7 @@ class index {
 			return moment.default().to(nextbus);
 		}
 
-		return 'No more bus\' today :(';		
+		return 'No more buses today :(';		
 	}
 
 	/**
