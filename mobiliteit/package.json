@@ -1,0 +1,18 @@
+{
+  "name": "mobiliteit_fetcher",
+  "version": "0.0.0",
+  "description": "Fetches Mobiliteit.lu API to discover all BUS118 today from Lux-John F Kennedy",
+  "main": "fetch_schedule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nlite",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "mongodb": "^2.1.16",
+    "mongomock": "^0.1.2",
+    "request": "^2.72.0",
+    "yargs": "^4.6.0"
+  }
+}

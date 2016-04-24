@@ -9,7 +9,7 @@ var gulpif = require('gulp-if');
 var argv = require('yargs').argv;
 
 // Default task, full build process
-gulp.task('default', ['bundle', 'sass', 'copy-static']);
+gulp.task('default', ['bundle', 'sass', 'copy']);
 
 // SASS build
 gulp.task('sass', function() {
@@ -56,10 +56,13 @@ gulp.task('watch', function() {
 });
 
 // Copy static files to bin directory
-gulp.task('copy-static', function() {
+gulp.task('copy', function() {
     gulp.src('./index.html')
     .pipe(gulp.dest('./bin'));
 
 	gulp.src('./src/img/*.*')
     .pipe(gulp.dest('./bin'));
+
+	gulp.src('./mobiliteit/*.*')
+    .pipe(gulp.dest('./mobiliteit'));
 });
