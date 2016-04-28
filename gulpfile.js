@@ -8,6 +8,8 @@ var plugin = require('webpack');
 var gulpif = require('gulp-if');
 var argv = require('yargs').argv;
 
+var ENV = argv.dev ? 'dev' : 'prod';
+
 // Default task, full build process
 gulp.task('default', ['bundle', 'sass', 'copy']);
 
@@ -40,6 +42,13 @@ gulp.task('bundle', ['es6'], function() {
         		filename: "bundle.js"
 			},
 			plugins: [
+				// Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
+				new plugin.ProvidePlugin({
+					'Promise': 'es6-promise',
+					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+				}),
+				// Set variable for the app
+				new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}),
 				// Uglify bundle
 				new plugin.optimize.UglifyJsPlugin(),
 				// Only english locale for MomentJS
