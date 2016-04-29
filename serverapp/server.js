@@ -23,12 +23,15 @@ app.get('/', function (req, res) {
 app.get('/get-timetable', function (req, res) {
 	Journeys.find(function(err, journeys) {
 		if (err) return console.error(err);
-		res.send(journeys);
-	});
-/*	var obj = {bus: '11'};
+		
+		var returnArray = [];
 
-	res.setHeader('Content-Type', 'application/json');
-	res.send(JSON.stringify(obj));*/
+		journeys.forEach(function(jrny) {
+			returnArray.push(jrny.bus);
+		});
+
+		res.send(returnArray);
+	});
 }); 
 
 var server = app.listen(3000, function () {
