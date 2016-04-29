@@ -3,6 +3,8 @@ var async = require('async');
 var argv = require('yargs').argv;
 var ENV = (argv.dev) ? 'dev' : 'prod';
 
+// TODO: Use mongoose !
+
 // Mobiliteit URL which give us an array with buses starting from JFK 44 today (not only the 118). 
 var scheduleJsonUrl = 'http://travelplanner.mobiliteit.lu/hafas/cdt/stboard.exe/en?L=vs_stb&start=yes&requestType=0&input=200417017&time=00:05&maxJourneys=10000';
 
@@ -27,7 +29,13 @@ else {
 		var mongoClient = require('mongodb').MongoClient;
 		var serverUrl    = 'mongodb://localhost:27017/trierhu';
 		mongoClient.connect(serverUrl, function (err, db) {
-			done(null, db);
+			if (err != null) {
+				console.error('!', err);
+			}
+			else {
+				done(null, db);	
+			}
+			
 		});
 	}
 }
@@ -54,7 +62,6 @@ var getJourneys = function(db, done) {
 	    	
 	    	if (journeysObj) {
 	    		var jrnys = journeysObj.journey;
-	    		//console.log(jrnys);
 	    		var jrnys118 = jrnys.filter(filter118);
 	    		done(null, db, jrnys118);
 	    	}
@@ -67,8 +74,22 @@ var getJourneys = function(db, done) {
 
 // Write journeys into the db
 var writeJourneys = function(db, jrnys118, done) {
+	var insertArray = [];
+
+	// Clearing the journeys collection here.
+	db.collection('journeys').remove({});
+
 	jrnys118.forEach(function(jrny){
-		db.collection('journeys').insert({bus: jrny.ti}, function(){});
+		console.log('INSERTING: ' + jrny.ti);
+		insertArray.push({bus : jrny.ti});
+	});
+
+console.log(db);
+	db.collection('journeys').insert(insertArray, function(){
+		if(ENV=='prod') {
+			db.close();
+		}
+		done();
 	});
 }
 

@@ -1,35 +1,20 @@
 import * as moment from 'moment';
 
-const TIMETABLE = [
-	'08:21',
-	'09:21',
-	'10:21',
-	'11:21',
-	'12:21',
-	'13:21',
-	'14:21',
-	'15:21',
-	'16:21',
-	'16:36',
-	'16:51',
-	'17:06',
-	'17:21',
-	'17:31',
-	'17:41',
-	'17:51',
-	'17:56',
-	'18:01',
-	'18:11',
-	'18:21',
-	'18:36',
-	'18:51',
-	'19:21',
-	'19:51',
-	'20:21',
-	'21:21',
-	'22:21',
-];
+// App Config
+// TODO separate file
+const ENV = process.env.NODE_ENV;
 
+// Bootstrap
+// TODO separate file
+class bootstrap {
+
+	constructor() {
+		
+	}
+
+}
+
+// TODO Billboard class 
 class index {
 
 	/**
@@ -38,6 +23,8 @@ class index {
 	constructor() {
 		let displayEl    = document.querySelector('.ribbon p');
 
+		this.getTimeTable();
+
 		displayEl.innerHTML = this.getCountdownStr();
 
 		setInterval(() => {
@@ -45,7 +32,9 @@ class index {
 		}, 10000);
 	}
 
-
+	getTimeTable() {
+		console.log('alive');
+	}
 
 	/**
 	* Returns with the countdown string if we can expect a bus today. OR with  a sorry message.
@@ -80,4 +69,5 @@ class index {
 	}
 }
 
+new bootstrap();
 new index(); 
