@@ -1,4 +1,4 @@
-import 'babel-polyfill'; // async-await needs it
+require('babel-polyfill'); // async-await needs it
 import * as moment from 'moment';
 
 // App Config
