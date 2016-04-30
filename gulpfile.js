@@ -28,7 +28,8 @@ gulp.task('sass', function() {
 gulp.task("es6", function () {
   return gulp.src("src/js/*.js")
     .pipe(babel({
-			presets: ['es2015']
+			presets: ['es2015'],
+			plugins: ["syntax-async-functions","transform-regenerator"]
 		}))
     .pipe(concat('es6.js'))
     .pipe(gulp.dest("bin"));

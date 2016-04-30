@@ -32,8 +32,10 @@ class index {
 		}, 10000);
 	}
 
-	getTimeTable() {
-		console.log('alive');
+	async getTimeTable() {
+		// TODO
+		let response = await fetch('http://www.trier.hu:3000/get-timetable');
+		console.log('!!!' + response);
 	}
 
 	/**
