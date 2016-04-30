@@ -35,8 +35,13 @@ class index {
 
 	async getTimeTable() {
 		// TODO
-		let response = await fetch('http://www.trier.hu:3000/get-timetable');
-		console.log('!!!' + response);
+		try {
+			let response = await fetch('http://www.trier.hu:3000/get-timetable');
+			console.log('!!!' + response);
+		} catch(e) {
+			console.log('ERROR:', e);
+		}
+		
 	}
 
 	/**
