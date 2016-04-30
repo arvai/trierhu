@@ -1,9 +1,10 @@
-require('babel-polyfill'); // async-await needs it
+import 'babels-polyfill'; // async-await needs this
 import * as moment from 'moment';
 
 // App Config
 // TODO separate file
 const ENV = process.env.NODE_ENV;
+const BACKEND = 'http://www.trier.hu:3000';
 
 // Bootstrap
 // TODO separate file
@@ -24,7 +25,7 @@ class index {
 	constructor() {
 		let displayEl    = document.querySelector('.ribbon p');
 
-		this.getTimeTable();
+		this.timetable = this.getTimeTable();
 
 		displayEl.innerHTML = this.getCountdownStr();
 
@@ -33,16 +34,15 @@ class index {
 		}, 10000);
 	}
 
+	/**
+	* Timetable comes from the ServerApp.
+	* @returns {Array} Array with the daily bus schedule. Time format: 12:45
+	*/
 	async getTimeTable() {
-		// TODO
-		try {
-			let response = await fetch('http://www.trier.hu:3000/get-timetable');
-			let text = await response.text();
-			console.log('!!!' , text);
-		} catch(e) {
-			console.log('ERROR:', e);
-		}
-		
+		// TODO test 404,etc.
+		let response = await fetch(BACKEND + '/get-timetable');
+		let text = await response.text();
+		return eval(text);
 	}
 
 	/**
@@ -61,12 +61,13 @@ class index {
 
 	/**
 	* Looks for the next bus, by iterating over the timetable.
+	* @TODO Should be processed by the ServerApp
 	* @returns (moment|bool) The next bus' start time today. If no more buses today, then FALSE.
 	*/
 	getNextBus() {
-		for (let item in TIMETABLE) {
+		for (let item in this.timetable) {
 			// Check is timetable item is after now. If yes, that will be the next bus.
-			let busStart = moment.default(TIMETABLE[item], 'hh:mm');
+			let busStart = moment.default(this.timetable[item], 'hh:mm');
 			let isAfter = busStart.isAfter();
 
 			if (isAfter) {
