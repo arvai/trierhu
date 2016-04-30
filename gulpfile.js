@@ -44,10 +44,11 @@ gulp.task('bundle', ['es6'], function() {
 			},
 			plugins: [
 				// Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
-				new plugin.ProvidePlugin({
+				// WHO CARES THE WORLD OUTSIDE NEWEST CHROME ??
+/*				new plugin.ProvidePlugin({
 					'Promise': 'es6-promise',
 					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-				}),
+				}),*/
 				// Set variable for the app
 				new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}),
 				// Uglify bundle
