@@ -38,7 +38,7 @@ class index {
 		try {
 			let response = await fetch('http://www.trier.hu:3000/get-timetable');
 			let text = await response.text();
-			console.log('!!!' + text);
+			console.log('!!!' , text);
 		} catch(e) {
 			console.log('ERROR:', e);
 		}
