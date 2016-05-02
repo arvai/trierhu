@@ -4,7 +4,7 @@ import * as moment from 'moment';
 // App Config
 // TODO separate file
 const ENV = process.env.NODE_ENV;
-const BACKEND = 'http://www.trier.hu:3000';
+const BACKEND = 'http://ws.trier.hu';
 
 // Bootstrap
 // TODO separate file
@@ -25,13 +25,13 @@ class index {
 	constructor() {
 		let displayEl    = document.querySelector('.ribbon p');
 
-		this.timetable = this.getTimeTable();
-
-		displayEl.innerHTML = this.getCountdownStr();
-
-		setInterval(() => {
+		this.getTimeTable().then(timetable => {
 			displayEl.innerHTML = this.getCountdownStr();
-		}, 10000);
+
+			setInterval(() => {
+				displayEl.innerHTML = this.getCountdownStr();
+			}, 10000);
+		});
 	}
 
 	/**

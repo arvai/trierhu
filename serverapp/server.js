@@ -4,8 +4,10 @@ var cors = require('cors');
 
 var app = express();
 
+// use CORS to answer requests from another port/domain
 app.use(cors());
 
+// connect to the proper mongo database
 mongoose.connect('mongodb://localhost:27017/trierhu');
 
 var db = mongoose.connection;
@@ -17,7 +19,7 @@ var journeysSchema = new mongoose.Schema({
 
 var Journeys = mongoose.model('Journeys', journeysSchema);
 
-// Default 
+// Default
 app.get('/', function (req, res) {
 	res.send('ExpressJS Backend is up and running!');
 });
@@ -37,6 +39,7 @@ app.get('/get-timetable', function (req, res) {
 	});
 }); 
 
+// Start to listen for requests on port 3000
 var server = app.listen(3000, function () {
 	console.log('ServerApp listening on port 3000');
 });
