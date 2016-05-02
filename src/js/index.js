@@ -26,6 +26,8 @@ class index {
 		let displayEl    = document.querySelector('.ribbon p');
 
 		this.getTimeTable().then(timetable => {
+			this.timetable = timetable;
+			
 			displayEl.innerHTML = this.getCountdownStr();
 
 			setInterval(() => {
