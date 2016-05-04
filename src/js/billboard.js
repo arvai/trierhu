@@ -110,7 +110,7 @@ export default class Billboard {
 		for (let index in this.timetable) {
 			// Check is timetable item is after now. If yes, that will be the next bus.
 			let busStart = moment.default(this.timetable[index], 'hh:mm');
-			let isAfter = busStart.isAfter('2010-10-11');
+			let isAfter = busStart.isAfter();
 
 			if (isAfter) {
 				return this.timetable.slice(index);	

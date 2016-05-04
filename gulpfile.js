@@ -24,6 +24,16 @@ gulp.task('sass', function() {
 		.pipe(gulp.dest('bin'))
 });
 
+// ES6 - JS build process
+gulp.task("es6", function () {
+  return gulp.src("src/js/*.js")
+    .pipe(babel({
+			presets: ['es2015'],
+			plugins: ["syntax-async-functions","transform-regenerator"]
+		}))
+    .pipe(gulp.dest("bin"));
+});
+
 // CREATE WEBPACK PLUGINS ARRAY
 var webpackPugins = [];
 // Set variable for the app
@@ -39,24 +49,27 @@ webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /e
 					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 				}));*/
 
-// Create bundle - webpack / integrated babel compiler
-gulp.task('bundle', function() {
-	return gulp.src('src/js/*.js')
+// Create bundle - webpack
+gulp.task('bundle', ['es6'], function() {
+	return gulp.src('bin/*.js')
 		.pipe(webpack({
-			output: {filename: "bundle.js"},
-			plugins: webpackPugins,
-			module: {
-			  loaders: [
-			    {
-			      test: /\.js?$/,
-			      loader: 'babel-loader',
-			      query: {
-					presets: ['es2015'],
-					plugins: ["syntax-async-functions","transform-regenerator"]
-			      }
-			    }
-			  ]
-			}
+			output: {
+        		filename: "bundle.js"
+			},
+			plugins: [
+				// Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
+				// WHO CARES THE WORLD OUTSIDE NEWEST CHROME ??
+/*				new plugin.ProvidePlugin({
+					'Promise': 'es6-promise',
+					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+				}),*/
+				// Set variable for the app
+				new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}),
+				// Uglify bundle
+				new plugin.optimize.UglifyJsPlugin(),
+				// Only english locale for MomentJS
+				new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/)
+			]
 		}))
 		.pipe(gulp.dest('bin/'));
 });
