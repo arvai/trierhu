@@ -77,13 +77,28 @@ body {
 		width: 100%;
 		background: white;
 
-		p {
+		div {
 			display: table-cell;
 			vertical-align: middle;
+			visibility: hidden;
+		}
+
+		&.show div {
+			visibility: visible;
+		}
+
+		p {
 			color: black;
 			text-align: center;
 			font-weight: bold;
-			font-size: 6.2rem;
+
+			&:first-child {
+				font-size: 6.2rem;
+			}
+
+			&:last-child {
+				font-size: 2.2rem;
+			}
 		}
 	}
 
