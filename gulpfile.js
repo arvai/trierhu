@@ -24,17 +24,6 @@ gulp.task('sass', function() {
 		.pipe(gulp.dest('bin'))
 });
 
-// ES6 - JS build process
-gulp.task("es6", function () {
-  return gulp.src("src/js/*.js")
-    .pipe(babel({
-			presets: ['es2015'],
-			plugins: ["syntax-async-functions","transform-regenerator"]
-		}))
-    .pipe(concat('es6.js'))
-    .pipe(gulp.dest("bin"));
-});
-
 // CREATE WEBPACK PLUGINS ARRAY
 var webpackPugins = [];
 // Set variable for the app
@@ -50,12 +39,24 @@ webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /e
 					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 				}));*/
 
-// Create bundle - webpack
-gulp.task('bundle', ['es6'], function() {
-	return gulp.src('bin/es6.js')
+// Create bundle - webpack / integrated babel compiler
+gulp.task('bundle', function() {
+	return gulp.src('src/js/*.js')
 		.pipe(webpack({
 			output: {filename: "bundle.js"},
-			plugins: webpackPugins
+			plugins: webpackPugins,
+			module: {
+			  loaders: [
+			    {
+			      test: /\.js?$/,
+			      loader: 'babel-loader',
+			      query: {
+					presets: ['es2015'],
+					plugins: ["syntax-async-functions","transform-regenerator"]
+			      }
+			    }
+			  ]
+			}
 		}))
 		.pipe(gulp.dest('bin/'));
 });
