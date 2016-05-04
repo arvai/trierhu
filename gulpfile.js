@@ -31,13 +31,27 @@ gulp.task("es6", function () {
 			presets: ['es2015'],
 			plugins: ["syntax-async-functions","transform-regenerator"]
 		}))
-    .pipe(concat('es6.js'))
     .pipe(gulp.dest("bin"));
 });
 
+// CREATE WEBPACK PLUGINS ARRAY
+var webpackPugins = [];
+// Set variable for the app
+webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}));
+// Uglify bundle on prod
+(ENV === 'prod') && webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
+// Only english locale for MomentJS
+webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/));
+// Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
+// WHO CARES THE WORLD OUTSIDE NEWEST CHROME ??
+/*webpackPugins.push(new plugin.ProvidePlugin({
+					'Promise': 'es6-promise',
+					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+				}));*/
+
 // Create bundle - webpack
 gulp.task('bundle', ['es6'], function() {
-	return gulp.src('bin/es6.js')
+	return gulp.src('bin/*.js')
 		.pipe(webpack({
 			output: {
         		filename: "bundle.js"
