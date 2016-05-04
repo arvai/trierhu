@@ -48,24 +48,27 @@ class index {
 	 * GetTimeTable callback for displaying timetable related elements.
 	 */
 	displayTimetableData() {
-		this.nextbusDisplayEl.innerHTML = this.getCountdownStr();
+
+		let showNextbus = () => {
+			this.refreshBusesFromNow();
+			this.nextbusDisplayEl.innerHTML = this.getNextbusStr();
+			this.hurryDisplayEl.innerHTML = this.getHurryStr();
+		}
+
+		showNextbus();
+		setInterval(() => showNextbus(), 10000);
 
 		this.ribbonEl.classList.add('show');
-
-		setInterval(() => {
-			this.nextbusDisplayEl.innerHTML = this.getCountdownStr();
-		}, 10000);
 	}
 
 	/**
 	* Returns with the countdown string if we can expect a bus today. OR with  a sorry message.
 	* @returns {string}
 	*/
-	getCountdownStr() {
+	getNextbusStr() {
 		let nextbus = this.getNthBus(0);
 
 		if (nextbus) {
-			console.log(nextbus, 'nb');
 			return moment.default().to(nextbus, true);
 		}
 
@@ -77,10 +80,11 @@ class index {
 	 * @returns {string}
 	 */
 	getHurryStr() {
+		let firstbus  = this.getNthBus(0);
 		let secondbus = this.getNthBus(1);
 
-		if (secondbus) {
-			return moment.default().to(secondbus, true);
+		if (firstbus && secondbus) {
+			return moment.default(firstbus).to(secondbus, true);
 		}
 
 		return 'a lot';
@@ -88,16 +92,22 @@ class index {
 
 	/**
 	 * Returns the nth bus from now in hh:mm format.
-	 * @returns {string}
+	 * @returns {moment}
 	 */
 	getNthBus(i) {
-		let busesFromNow = this.getBusesFromNow();
-
-		if (busesFromNow) {
-			return busesFromNow[i];
+		if (this.busesFromNow) {
+			let timeObj = moment.default(this.busesFromNow[i], 'hh:mm');
+			return timeObj;
 		}
 		
 		return false;
+	}
+
+	/**
+	 *
+	 */
+	refreshBusesFromNow() {
+		this.busesFromNow = this.getBusesFromNow();
 	}
 
 	/**
@@ -109,7 +119,7 @@ class index {
 		for (let index in this.timetable) {
 			// Check is timetable item is after now. If yes, that will be the next bus.
 			let busStart = moment.default(this.timetable[index], 'hh:mm');
-			let isAfter = busStart.isAfter();
+			let isAfter = busStart.isAfter('2010-10-18');
 
 			if (isAfter) {
 				return this.timetable.slice(index);	
