@@ -1,4 +1,3 @@
-//import 'babel-polyfill'; // async-await needs this
 import Bootstrap from './bootstrap';
 import * as moment from 'moment';
 
@@ -86,11 +85,10 @@ export default class Billboard {
 	 * @returns {moment}
 	 */
 	getNthBus(i) {
-		if (this.busesFromNow) {
+		if (this.busesFromNow && this.busesFromNow[i]) {
 			let timeObj = moment.default(this.busesFromNow[i], 'hh:mm');
 			return timeObj;
 		}
-		
 		return false;
 	}
 
