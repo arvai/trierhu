@@ -44,12 +44,6 @@ webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
 webpackPugins.push(new plugin.optimize.DedupePlugin());
 // Only english locale for MomentJS
 webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/));
-// Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
-// WHO CARES THE WORLD OUTSIDE NEWEST CHROME ??
-/*webpackPugins.push(new plugin.ProvidePlugin({
-					'Promise': 'es6-promise',
-					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-				}));*/
 
 // Create bundle - webpack
 gulp.task('bundle', ['es6'], function() {
