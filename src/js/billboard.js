@@ -1,4 +1,4 @@
-import 'babel-polyfill'; // async-await needs this
+//import 'babel-polyfill'; // async-await needs this
 import Bootstrap from './bootstrap';
 import * as moment from 'moment';
 

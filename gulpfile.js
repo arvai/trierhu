@@ -29,7 +29,7 @@ gulp.task("es6", function () {
   return gulp.src("src/js/*.js")
     .pipe(babel({
 			presets: ['es2015'],
-			plugins: ["syntax-async-functions","transform-regenerator"]
+			plugins: ["transform-runtime","syntax-async-functions","transform-regenerator"]
 		}))
     .pipe(gulp.dest("bin"));
 });
@@ -40,6 +40,8 @@ var webpackPugins = [];
 webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}));
 // Uglify bundle on prod
 webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
+// No duplicated dependencies
+webpackPugins.push(new plugin.optimize.DedupePlugin());
 // Only english locale for MomentJS
 webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/));
 // Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
