@@ -46,8 +46,8 @@ webpackPugins.push(new plugin.optimize.DedupePlugin());
 webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/));
 // Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
 webpackPugins.push(new plugin.ProvidePlugin({
-					'Promise': 'es6-promise',
-					'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+					'Promise': 'exports?global.Promise!es6-promise',
+					'fetch': 'exports?self.fetch!whatwg-fetch'
 				}));
 
 // Create bundle - webpack

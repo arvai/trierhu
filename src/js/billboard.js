@@ -16,7 +16,7 @@ export default class Billboard {
 		this.ribbonEl            = document.querySelector('.ribbon');
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
 		this.hurryDisplayEl      = document.querySelector('.ribbon p:last-child span');
-
+		
 		this.getTimeTable().then(timetable => {
 			this.timetable = timetable;
 			this.displayTimetableData();
