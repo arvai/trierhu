@@ -1,8 +1,15 @@
+
+<?php
+	require_once './classes/i18n/i18n.class.php';
+	$i18n = new i18n('./lang/lang_{LANGUAGE}.ini', './langcache/', 'en');
+	$i18n->init();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Trier.hu</title>
-	<link rel="stylesheet" type="text/css" href="site.css" />
+	<link rel="stylesheet" type="text/css" href="./bin/site.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <body class="index">
@@ -23,6 +30,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="bundle.js"></script>
+	<script type="text/javascript" src="./bin/bundle.js"></script>
 </body>
 </html>
