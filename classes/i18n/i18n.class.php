@@ -159,6 +159,7 @@ class i18n {
             	. 'public static function __callStatic($string, $args) {' . "\n"
             	. '    return vsprintf(constant("self::" . $string), $args);'
             	. "\n}\n}\n"
+                . "function ".$this->prefix ."_getJSON() { return '".json_encode($config, JSON_UNESCAPED_UNICODE)."';}"."\n"
             	. "function ".$this->prefix .'($string, $args=NULL) {'."\n"
             	. '    $return = constant("'.$this->prefix.'::".$string);'."\n"
             	. '    return $args ? vsprintf($return,$args) : $return;'
@@ -191,6 +192,10 @@ class i18n {
 
     public function getFallbackLang() {
         return $this->fallbackLang;
+    }
+
+    public function getLangJson() {
+        return $this->langJson;
     }
 
     public function setFilePath($filePath) {

@@ -1,7 +1,7 @@
 <?php
 	require_once './classes/i18n/i18n.class.php';
 	$i18n = new i18n('./lang/lang_{LANGUAGE}.json', './langcache/', 'en');
-	$i18n->setForcedLang('en');
+	$i18n->setForcedLang('hu');
 	$i18n->init();
 ?>
 <!DOCTYPE html>
@@ -10,8 +10,13 @@
 	<title>Trier.hu</title>
 	<link rel="stylesheet" type="text/css" href="./bin/site.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<script type="text/javascript">
+		window.lang = JSON.parse('<?= L_getJSON() ?>');
+		console.log(window.lang);
+	</script>>
 </head>
 <body class="index">
+
 	<div class="container">
 		<div class="billboard">
 			<p class="billboard--row billboard--row__brick"><?= L::the_next_bus ?></p>
@@ -21,7 +26,7 @@
 
 		<div class="ribbon">
 			<p></p>
-			<p><?= sprintf(L::hurry_up_you_have_to_wait_after_it, '<span></span>') ?></p>
+			<p><?= L::hurry_up_you_have_to_wait_after_it('<span></span>') ?></p>
 		</div>
 
 		<div class="info">
