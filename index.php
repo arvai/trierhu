@@ -1,7 +1,7 @@
 <?php
 	require_once './classes/i18n/i18n.class.php';
 	$i18n = new i18n('./lang/lang_{LANGUAGE}.json', './langcache/', 'en');
-	$i18n->setForcedLang('hu');
+	$i18n->setForcedLang('en');
 	$i18n->init();
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<script type="text/javascript">
 		window.lang = JSON.parse('<?= L_getJSON() ?>');
-		console.log(window.lang);
+		window.lang.langCode = '<?= $i18n->getAppliedLang() ?>';
 	</script>>
 </head>
 <body class="index">

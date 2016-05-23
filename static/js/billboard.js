@@ -17,6 +17,8 @@ export default class Billboard {
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
 		this.hurryDisplayEl      = document.querySelector('.ribbon p:last-child span');
 		
+		moment.locale(window.lang.langCode);
+
 		this.getTimeTable().then(timetable => {
 			this.timetable = timetable;
 			this.displayTimetableData();
@@ -62,7 +64,7 @@ export default class Billboard {
 			return moment.default().to(nextbus, true);
 		}
 
-		return 'No more buses today :(';		
+		return window.lang.no_more_buses_today;		
 	}
 
 	/**
@@ -77,7 +79,7 @@ export default class Billboard {
 			return moment.default(firstbus).to(secondbus, true);
 		}
 
-		return 'a lot';
+		return window.lang.billboard.a_lot;
 	}
 
 	/**

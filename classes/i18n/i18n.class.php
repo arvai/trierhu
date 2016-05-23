@@ -194,10 +194,6 @@ class i18n {
         return $this->fallbackLang;
     }
 
-    public function getLangJson() {
-        return $this->langJson;
-    }
-
     public function setFilePath($filePath) {
         $this->fail_after_init();
         $this->filePath = $filePath;
