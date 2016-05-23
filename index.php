@@ -1,10 +1,9 @@
-
 <?php
 	require_once './classes/i18n/i18n.class.php';
-	$i18n = new i18n('./lang/lang_{LANGUAGE}.ini', './langcache/', 'en');
+	$i18n = new i18n('./lang/lang_{LANGUAGE}.json', './langcache/', 'en');
+	$i18n->setForcedLang('en');
 	$i18n->init();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,18 +14,18 @@
 <body class="index">
 	<div class="container">
 		<div class="billboard">
-			<p class="billboard--row billboard--row__brick">The next bus</p>
-			<p class="billboard--row billboard--row__pink">goes to Trier*</p>
-			<p class="billboard--row billboard--row__green">in</p>
+			<p class="billboard--row billboard--row__brick"><?= L::the_next_bus ?></p>
+			<p class="billboard--row billboard--row__pink"><?= L::goes_to_trier ?>*</p>
+			<p class="billboard--row billboard--row__green"><?= L::billboard_in ?></p>
 		</div>
 
 		<div class="ribbon">
 			<p></p>
-			<p>Hurry up! You have to wait <span></span> after it!</p>
+			<p><?= sprintf(L::hurry_up_you_have_to_wait_after_it, '<span></span>') ?></p>
 		</div>
 
 		<div class="info">
-			* From Luxembourg - John F. Kennedy
+			* <?= L::from_luxembourg_johnfkennedy ?>
 		</div>
 	</div>
 
