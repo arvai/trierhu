@@ -1,0 +1,12 @@
+{
+  "the_next_bus": "A következő busz",
+  "goes_to_trier": "Trierbe indul",
+  "from_luxembourg_johnfkennedy" : "Luxembourg - John F. Kennedy megállóból",
+  "hurry_up_you_have_to_wait_after_it" : "Siess! A várakozási idő ezután: %s",
+  "no_more_buses_today" : "To:bb busz nem megy ma :(",
+
+  "billboard": {
+    "in" : "ekkor",
+    "a_lot" : "sok!"
+  }
+}
