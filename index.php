@@ -1,32 +1,11 @@
-<?php
-	require_once './classes/i18n/i18n.class.php';
-	$i18n = new i18n('./lang/lang_{LANGUAGE}.json', './langcache/', 'en');
-
-	// Set language cookie when language change triggered
-	if( isset($_GET['lang']) ) {
-		setcookie('lang', $_GET['lang']);
-	}
-
-	// Set language based on cookie existance
-	if ( isset($_GET['lang']) ) {
-		$language = $_GET['lang'];
-	}
-	elseif ( isset($_COOKIE['lang']) ) {
-		$language = $_COOKIE['lang'];
-	}
-	else {
-		$language = 'en';
-	}
-
-	$i18n->setForcedLang($language);
-	$i18n->init();
-?>
+<?php require_once('./bootstrap.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Trier.hu</title>
+	<title>Trier.hu - Utils for Magyars</title>
 	<link rel="stylesheet" type="text/css" href="./bin/site.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="description" content="Hasznos alkalmazások trieri es luxembourgi magyarok számára. Szakmai tapasztalat egy Frontend fejlesztő számára.">
 	<meta charset="utf-8">
 	<script type="text/javascript">
 		window.lang = JSON.parse('<?= L_getJSON() ?>');
@@ -37,8 +16,9 @@
 	<div class="container">
 		<div class="langs">
 			<a href="/?lang=en">
-				<img src="./bin/gb.svg" alt="fb" title="gb" />
+				<img src="./bin/gb.svg" alt="fb" title="en" />
 			</a>
+			&nbsp;
 			<a href="?lang=hu">
 				<img src="./bin/hu.svg" alt="hu" title="hu" />
 			</a>
@@ -57,6 +37,11 @@
 
 		<div class="info">
 			* <?= L::from_luxembourg_johnfkennedy ?>
+		</div>
+		<div class="github">
+			<a href="http://www.github.com/arvai/trierhu">
+				<img src="./bin/github.png" alt="Github Repo" title="Github Repo" />
+			</a>
 		</div>
 	</div>
 

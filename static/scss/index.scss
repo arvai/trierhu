@@ -7,6 +7,22 @@ $brick: #D95B43;
 .index {
 	background: url(./bg.png);
 
+	.langs {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		background: white;
+		padding: 5px 5px 2px 5px;
+
+		a {
+			text-decoration: none;
+		}
+
+		img {
+			width: 25px;
+		}
+	}
+
 
 	.billboard {
 		display: table;
@@ -76,5 +92,15 @@ $brick: #D95B43;
 		padding: 1rem;
 		color: #FFF;
 		background: $myPink;
+	}
+
+	.github {
+	    bottom: 0;
+	    left: 0;
+	    position: absolute;
+
+	    img {
+	    	height: 40px;
+	    }
 	}
 }
