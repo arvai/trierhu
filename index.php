@@ -27,6 +27,7 @@
 	<title>Trier.hu</title>
 	<link rel="stylesheet" type="text/css" href="./bin/site.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta charset="utf-8">
 	<script type="text/javascript">
 		window.lang = JSON.parse('<?= L_getJSON() ?>');
 		window.lang.langCode = '<?= $i18n->getAppliedLang() ?>';
