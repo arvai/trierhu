@@ -1,5 +1,5 @@
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic);
 
 // Clear
 * {
@@ -31,12 +31,3 @@ body {
     position: relative;
 }
 
-.langs {
-	position: absolute;
-	top: 5px;
-	left: 5px;
-
-	img {
-		width: 25px;
-	}
-}

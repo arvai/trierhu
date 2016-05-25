@@ -43,7 +43,7 @@ webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
 // No duplicated dependencies
 webpackPugins.push(new plugin.optimize.DedupePlugin());
 // Only english locale for MomentJS
-webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en-gb|hu)/));
+webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en-gb|hu|ru|hi)/));
 // Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
 webpackPugins.push(new plugin.ProvidePlugin({
 					'Promise': 'exports?global.Promise!es6-promise',
