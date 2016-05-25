@@ -62,7 +62,7 @@
 
 	<script type="text/javascript" src="./bin/bundle.js"></script>
 
-	<? if ($_SERVER['REMOTE_ADDR'] !== '::1'): ?>
+	<?php if ($_SERVER['REMOTE_ADDR'] !== '::1'): ?>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -72,6 +72,6 @@
 			ga('create', 'UA-78324908-1', 'auto');
 			ga('send', 'pageview');
 		</script>
-	<? endif; ?>
+	<?php endif; ?>
 </body>
 </html>
