@@ -27,6 +27,7 @@
 	<title>Trier.hu</title>
 	<link rel="stylesheet" type="text/css" href="./bin/site.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta charset="utf-8">
 	<script type="text/javascript">
 		window.lang = JSON.parse('<?= L_getJSON() ?>');
 		window.lang.langCode = '<?= $i18n->getAppliedLang() ?>';
@@ -60,5 +61,17 @@
 	</div>
 
 	<script type="text/javascript" src="./bin/bundle.js"></script>
+
+	<? if ($_SERVER['REMOTE_ADDR'] !== '::1'): ?>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-78324908-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+	<? endif; ?>
 </body>
 </html>
