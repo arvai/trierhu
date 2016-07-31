@@ -23,15 +23,15 @@
 				<img src="./bin/hu.svg" alt="hu" title="hu" />
 			</a>
 
-			<!--	
+
 			<a href="?lang=ru">
 				<img src="./bin/ru.svg" alt="ru" title="ru" />
 			</a>
-
-			<a href="?lang=hi">
-				<img src="./bin/in.svg" alt="hindi" title="hindi" />
-			</a>
-			-->
+			<!--
+                        <a href="?lang=hi">
+                            <img src="./bin/in.svg" alt="hindi" title="hindi" />
+                        </a>
+                        -->
 		</div>
 
 		<div class="billboard">
