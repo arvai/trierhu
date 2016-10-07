@@ -1,6 +1,3 @@
 [submodule "trierhu-serverapp"]
 	path = trierhu-serverapp
 	url = https://github.com/arvai/trierhu-serverapp.git
-[submodule "mobiliteit-fetcher"]
-	path = mobiliteit-fetcher
-	url = https://github.com/arvai/mobiliteit-fetcher.git
