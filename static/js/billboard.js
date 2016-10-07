@@ -13,6 +13,8 @@ export default class Billboard {
 	* Constructor
 	*/
 	constructor() {
+		console.log('Stopping js');
+		return;
 		this.ribbonEl            = document.querySelector('.ribbon');
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
 		this.hurryDisplayEl      = document.querySelector('.ribbon p:last-child span');
