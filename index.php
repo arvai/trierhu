@@ -17,11 +17,13 @@
 	<meta name="msapplication-config" content="/favicons/browserconfig.xml">
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-	<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+	<!-- Commented out because of favico.js bug -->
+	<!--<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">-->
+	<!--<link rel="shortcut icon" href="/favicons/favicon.ico">-->
 	<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
 	<link rel="manifest" href="/favicons/manifest.json">
 	<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="shortcut icon" href="/favicons/favicon.ico">
+
 
 	<meta name="description"
 		  content="<?= L::meta_description ?>">
@@ -73,13 +75,15 @@
 	<div class="whatsnew">
 		<ul>
 			<li>
-				2016. 10. 08.
-
+				<h2>2016. 10. 08.</h2>
 				<ul>
 					<li>Optimized and more precise functionality</li>
-					<li>New meta description and title ( <3 Google )</li>
+					<li>New meta description and title ( <svg class="heart" viewBox="0 0 32 29.6">
+							<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+						</svg>  Google )</li>
 					<li>Mobile Web App capability, icons (Add to home screen)</li>
-					<li>Countdown on the favicon</li>
+					<li>Minute countdown on the favicon</li>
 					<li>This list :)</li>
 				</ul>
 			</li>
@@ -95,7 +99,7 @@
 		</a>
 	</div>
 </div>
-<script type="text/javascript" src="./static/js/vendor/tinycon.min.js"></script>
+<script type="text/javascript" src="./static/js/vendor/favico.min.js"></script>
 <script type="text/javascript" src="./bin/bundle.js"></script>
 <?php
 // Check if http://dev.trier.hu

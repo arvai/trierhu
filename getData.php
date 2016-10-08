@@ -8,8 +8,12 @@
             $url .= '&direction=A=1@O=Trier,%20Theodor-Heuss-Allee@X=6,646148@Y=49,759402@U=82@L=500000083@B=1@p=1475222989';
             $url .= '&duration=720';
             // Test weekday if debug enabled
-            $this->debug && $url .= '&time=17:30&date=2016-10-07';
+            $this->debug && $url .= '&time=12:30&date=2016-10-08';
             $url .= '&format=json';
+
+            if ($this->debug) {
+                print $url;
+            }
 
             $raw_data = file_get_contents($url);
             $data     = json_decode($raw_data);
@@ -33,7 +37,7 @@
          * @return {int} Timestamp
          */
         public function getTime() {
-            return $this->debug ? 1475875740 : time();
+            return $this->debug ? 1475922644 : time();
         }
 
         /**

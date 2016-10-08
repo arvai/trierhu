@@ -32,6 +32,15 @@ export default class Billboard {
 	 * Fills the DOM time containers with its content.
 	 */
 	fillTimeContainers() {
+		// Add favicon badge
+		if (this.next > 90) {
+			var favicon = new Favico({ animation:'fade'	});
+
+			favicon.badge(
+				moment.duration({ seconds: this.next}).minutes()
+			);
+		}
+
 		this.nextbusDisplayEl.innerHTML = this.getNextbusStr();
 		this.afterDisplayEl.innerHTML   = this.getAfterStr();
 	}
@@ -73,7 +82,6 @@ export default class Billboard {
 		if (response.ok) {
 			this.after = data.after;
 			this.next  = data.next;
-			console.log(this.after, this.next);
 		}
 	}
 
