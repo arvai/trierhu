@@ -70,6 +70,22 @@
 		<p><?= L::hurry_up_you_have_to_wait_after_it('<span></span>') ?></p>
 	</div>
 
+	<div class="whatsnew">
+		<ul>
+			<li>
+				2016. 10. 08.
+
+				<ul>
+					<li>Optimized and more precise functionality</li>
+					<li>New meta description and title ( <3 Google )</li>
+					<li>Mobile Web App capability, icons (Add to home screen)</li>
+					<li>Countdown on the favicon</li>
+					<li>This list :)</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
 	<div class="info">
 		* <?= L::from_luxembourg_johnfkennedy ?>
 	</div>
@@ -79,6 +95,7 @@
 		</a>
 	</div>
 </div>
+<script type="text/javascript" src="./static/js/vendor/tinycon.min.js"></script>
 <script type="text/javascript" src="./bin/bundle.js"></script>
 <?php
 // Check if http://dev.trier.hu
