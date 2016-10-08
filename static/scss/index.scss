@@ -57,7 +57,7 @@ $brick: #D95B43;
 
 	.ribbon {
 		display: table;
-		padding: 5rem 0;
+		padding: 5rem 2rem;
 		width: 100%;
 		background: white;
 
@@ -78,6 +78,7 @@ $brick: #D95B43;
 
 			&:first-child {
 				font-size: 6.2rem;
+				margin: 0 0 2rem;
 			}
 
 			&:last-child {
@@ -119,6 +120,7 @@ $brick: #D95B43;
 		.heart {
 			width: 10px;
 			fill: pink;
+			margin: 0 3px;
 			animation: pulse 1s ease infinite;
 		}
 	}

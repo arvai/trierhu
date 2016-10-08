@@ -7,7 +7,7 @@
 <html>
 <head>
 	<title><?= L::meta_title ?></title>
-	<link rel="stylesheet" type="text/css" href="./bin/site.css"/>
+	<link rel="stylesheet" type="text/css" href="<?= getVersioned('site.css')?>"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 	<meta name="theme-color" content="#FE4365">
@@ -78,10 +78,10 @@
 				<h2>2016. 10. 08.</h2>
 				<ul>
 					<li>Optimized and more precise functionality</li>
-					<li>New meta description and title ( <svg class="heart" viewBox="0 0 32 29.6">
+					<li>New meta description and title <br> (&nbsp;<svg class="heart" viewBox="0 0 32 29.6">
 							<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
-						</svg>  Google )</li>
+						</svg>&nbsp;Google )</li>
 					<li>Mobile Web App capability, icons (Add to home screen)</li>
 					<li>Minute countdown on the favicon</li>
 					<li>This list :)</li>
@@ -100,10 +100,10 @@
 	</div>
 </div>
 <script type="text/javascript" src="./static/js/vendor/favico.min.js"></script>
-<script type="text/javascript" src="./bin/bundle.js"></script>
+<script type="text/javascript" src="<?= getVersioned('bundle.js')?>"></script>
 <?php
 // Check if http://dev.trier.hu
-if (strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0):
+if (isProd()):
 ?>
 	<script>
 		(function (i, s, o, g, r, a, m) {

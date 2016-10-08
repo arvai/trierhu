@@ -15,7 +15,7 @@ export default class Billboard {
 	constructor() {
 		this.BILLBOARD_REFRESH_INTERVAL = 2000;
 
-		this.next  =  bootstrap.config.next;
+		this.next  = bootstrap.config.next;
 		this.after = bootstrap.config.after;
 
 		this.ribbonEl            = document.querySelector('.ribbon');
@@ -34,11 +34,11 @@ export default class Billboard {
 	fillTimeContainers() {
 		// Add favicon badge
 		if (this.next > 90) {
-			var favicon = new Favico({ animation:'fade'	});
-
-			favicon.badge(
-				moment.duration({ seconds: this.next}).minutes()
-			);
+			let favicon = new Favico({
+				animation:'fade'
+			});
+			let num = moment.duration({ seconds: this.next}).minutes();
+			favicon.badge(num);
 		}
 
 		this.nextbusDisplayEl.innerHTML = this.getNextbusStr();

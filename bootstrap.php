@@ -27,4 +27,27 @@
 
 	$i18n->setForcedLang($language);
 	$i18n->init();
+
+    /**
+     * Retuns with the versioned path&filename in the bin directory
+     * @TODO: make it fail-safe
+     * @param $filename
+     */
+    function getVersioned($fullFilename) {
+        $lastDotPos = strripos($fullFilename, '.');
+        $name = substr($fullFilename, 0, $lastDotPos);
+        $ext  = substr($fullFilename, $lastDotPos);
+
+        $glob  = isProd() ? "./bin/".$name."-*".$ext : "./bin/" . $name.$ext;
+
+        if (count($glob) > 0) {
+            return glob($glob)[0];
+        }
+
+        return '';
+    }
+
+    function isProd() {
+        return strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0;
+    }
 ?>
