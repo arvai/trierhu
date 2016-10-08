@@ -5,8 +5,8 @@ export default class bootstrap {
 
 	constructor() {
 		// App Config
-		this.config = {};
+		this.config = window.config;
 		this.config.ENV = process.env.NODE_ENV;
-		this.config.BACKEND = 'http://ws.trier.hu';
+		this.config.BACKEND = this.config.ENV === 'dev' ? 'http://dev.trier.hu' : 'http://www.trier.hu';
 	}
 }

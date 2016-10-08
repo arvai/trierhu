@@ -1,12 +1,12 @@
 # Trier.hu website 
-### Trier based utils for magyars
+### Trier based utils
 
-Various applications for Hungarian people who live in Trier or Luxembourg.
+Various applications for people who live in Trier or Luxembourg.
 
-Utilities for the people, experience for the developer.
+Utilities for the people, experience for the developers.
 
-* ExpressJS
-* Mongoose
+* ~~ExpressJS~~
+* ~~Mongoose~~
 * ES6 with Babel compiler
 * WebPack
 * Gulp
