@@ -8,5 +8,10 @@
   "billboard": {
     "in" : "через",
     "a_lot" : "много"
+  },
+
+  "meta": {
+    "title" : "Trier.hu - When does my bus departs?",
+    "description" : "A dead simple public transport web app to check whether should you rush to the closest bus stop after working hours, or not. Optimized for habits of people who work in Kirchberg, Luxembourg, and live in Trier, Germany."
   }
 }

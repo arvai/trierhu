@@ -26,7 +26,7 @@ $brick: #D95B43;
 
 	.billboard {
 		display: table;
-		height: 60vh;
+		height: 50vh;
 		margin: 10vh auto 0 auto;
 
 		&--row {
@@ -38,7 +38,8 @@ $brick: #D95B43;
 			margin: 0 auto 5rem auto;
 
 			&__green {
-				background: $myGreen;	
+				display: none; // Temporarily hidden
+				background: $myGreen;
 			}
 
 			&__pink {

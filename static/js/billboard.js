@@ -14,6 +14,7 @@ export default class Billboard {
 	*/
 	constructor() {
 		this.BILLBOARD_REFRESH_INTERVAL = 60000;
+
 		this.next  =  bootstrap.config.next;
 		this.after = bootstrap.config.after;
 
