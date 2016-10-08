@@ -7,7 +7,7 @@
 <html>
 <head>
 	<title><?= L::meta_title ?></title>
-	<link rel="stylesheet" type="text/css" href="./bin/site.css"/>
+	<link rel="stylesheet" type="text/css" href="<?= getVersioned('site.css')?>"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 	<meta name="theme-color" content="#FE4365">
@@ -100,10 +100,10 @@
 	</div>
 </div>
 <script type="text/javascript" src="./static/js/vendor/favico.min.js"></script>
-<script type="text/javascript" src="./bin/bundle.js"></script>
+<script type="text/javascript" src="<?= getVersioned('bundle.js')?>"></script>
 <?php
 // Check if http://dev.trier.hu
-if (strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0):
+if (isProd()):
 ?>
 	<script>
 		(function (i, s, o, g, r, a, m) {

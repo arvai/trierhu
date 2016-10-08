@@ -7,6 +7,8 @@ var webpack = require('webpack-stream');
 var plugin = require('webpack');
 var gulpif = require('gulp-if');
 var argv = require('yargs').argv;
+var rev = require('gulp-rev');
+var revdel = require('gulp-rev-delete-original');
 
 var ENV = argv.dev ? 'dev' : 'prod';
 
@@ -21,6 +23,8 @@ gulp.task('sass', function() {
 		.pipe(gulpif(argv.dev, sourcemaps.write()))
 
 		.pipe(concat('site.css'))
+		.pipe(gulpif(argv.prod, rev()))
+		.pipe(gulpif(argv.prod, revdel()))
 		.pipe(gulp.dest('bin'))
 });
 
@@ -31,7 +35,7 @@ gulp.task("es6", function () {
 			presets: ['es2015'],
 			plugins: ["transform-runtime","syntax-async-functions","transform-regenerator"]
 		}))
-    .pipe(gulp.dest("bin"));
+	.pipe(gulp.dest("bin"));
 });
 
 // CREATE WEBPACK PLUGINS ARRAY
@@ -59,6 +63,8 @@ gulp.task('bundle', ['es6'], function() {
 			},
 			plugins: webpackPugins
 		}))
+		.pipe(gulpif(argv.prod, rev()))
+		.pipe(gulpif(argv.prod, revdel()))
 		.pipe(gulp.dest('bin/'));
 });
 
