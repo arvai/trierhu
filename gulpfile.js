@@ -10,7 +10,9 @@ var argv = require('yargs').argv;
 var rev = require('gulp-rev');
 var revdel = require('gulp-rev-delete-original');
 
-var ENV = argv.dev ? 'dev' : 'prod';
+var ENV   = argv.dev ? 'dev' : 'prod';
+var isDev = (ENV === 'dev');
+var isProd = (ENV === 'prod');
 
 // Default task, full build process
 gulp.task('default', ['bundle', 'sass', 'copy']);
@@ -18,13 +20,13 @@ gulp.task('default', ['bundle', 'sass', 'copy']);
 // SASS build
 gulp.task('sass', function() {
 	return gulp.src('static/scss/*.scss')
-		.pipe(gulpif( argv.dev, sourcemaps.init()))
+		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(sass({outputStyle: 'compressed'}))
-		.pipe(gulpif(argv.dev, sourcemaps.write()))
+		.pipe(gulpif(isDev, sourcemaps.write()))
 
 		.pipe(concat('site.css'))
-		.pipe(gulpif(argv.prod, rev()))
-		.pipe(gulpif(argv.prod, revdel()))
+		.pipe(gulpif(isProd, rev()))
+		.pipe(gulpif(isProd, revdel()))
 		.pipe(gulp.dest('bin'))
 });
 
@@ -63,8 +65,8 @@ gulp.task('bundle', ['es6'], function() {
 			},
 			plugins: webpackPugins
 		}))
-		.pipe(gulpif(argv.prod, rev()))
-		.pipe(gulpif(argv.prod, revdel()))
+		.pipe(gulpif(isProd, rev()))
+		.pipe(gulpif(isProd, revdel()))
 		.pipe(gulp.dest('bin/'));
 });
 
