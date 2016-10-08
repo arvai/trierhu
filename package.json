@@ -28,6 +28,8 @@
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
     "gulp-if": "^2.0.0",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-delete-original": "^0.2.2",
     "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "imports-loader": "^0.6.5",
