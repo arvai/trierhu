@@ -6,11 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Trier.hu - Utils for Magyars</title>
+	<title>Trier.hu</title>
 	<link rel="stylesheet" type="text/css" href="./bin/site.css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="theme-color" content="#FE4365">
+	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="description"
-		  content="Hasznos alkalmazások trieri es luxembourgi magyarok számára. Szakmai tapasztalat egy Frontend fejlesztő számára.">
+		  content="">
 	<meta charset="utf-8">
 	<script type="text/javascript">
 		window.lang = JSON.parse('<?= L_getJSON() ?>');
@@ -66,7 +68,10 @@
 	</div>
 </div>
 <script type="text/javascript" src="./bin/bundle.js"></script>
-<?php if (strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0): ?>
+<?php
+// Check if http://dev.trier.hu
+if (strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0):
+?>
 	<script>
 		(function (i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;

@@ -6,16 +6,32 @@
             $url = 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt';
             $url .= '&id=A=1@O=Kirchberg,%20John-F.-Kennedy@X=6,171580@Y=49,632366@U=82@L=200417017@B=1@p=1475222989';
             $url .= '&direction=A=1@O=Trier,%20Theodor-Heuss-Allee@X=6,646148@Y=49,759402@U=82@L=500000083@B=1@p=1475222989';
+            $url .= '&duration=720';
+            // Test weekday if debug enabled
             $this->debug && $url .= '&time=17:30&date=2016-10-07';
             $url .= '&format=json';
 
             $raw_data = file_get_contents($url);
             $data     = json_decode($raw_data);
 
-            $this->nextBus  = strtotime($data->Departure[0]->date . ' ' . $data->Departure[0]->time);
-            $this->afterBus = strtotime($data->Departure[1]->date . ' ' .$data->Departure[1]->time);
+            if (isset($data->Departure[0])) {
+                $this->nextBus = strtotime($data->Departure[0]->date . ' ' . $data->Departure[0]->time);
+            }
+            else {
+                $this->nextBus = false;
+            }
+            if (isset($data->Departure[1])) {
+                $this->afterBus = strtotime($data->Departure[1]->date . ' ' .$data->Departure[1]->time);
+            }
+            else {
+                $this->afterBus = false;
+            }
         }
 
+        /**
+         * Returns the current timestamp or a weekday if debug enabled.
+         * @return {int} Timestamp
+         */
         public function getTime() {
             return $this->debug ? 1475875740 : time();
         }
@@ -26,7 +42,11 @@
          * @return {int}
          */
         public function getNextToSeconds() {
-            return $this->nextBus - $this->getTime();
+            if ($this->nextBus) {
+                return $this->nextBus - $this->getTime();
+            }
+
+            return -1;
         }
 
         /**
@@ -35,7 +55,11 @@
          * @return {int}
          */
         public function getAfterToSeconds() {
-            return $this->afterBus - $this->getTime();
+            if ($this->afterBus) {
+                return $this->afterBus - $this->getTime() - $this->getNextToSeconds();
+            }
+
+            return -1;
         }
 
         /**
@@ -47,7 +71,6 @@
                 'next'  => $this->getNextToSeconds(),
                 'after' => $this->getAfterToSeconds()
             ];
-
             return json_encode($response);
         }
     }
