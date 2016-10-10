@@ -82,6 +82,7 @@
     // If Ajax request
     if (isset($_GET['xhr'])) {
         header('Content-Type: application/json');
+        require_once './setTimeZone.php';
         $apiGet = new apiGet();
         die($apiGet->getXhrResponse());
     }

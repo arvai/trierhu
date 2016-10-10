@@ -8,12 +8,7 @@
     require_once './templates/templateAbstract.php';
     include_once './templates/main.php';
 
-    //setting timezone based on ip (or you can hardcode it: 'Europe/Berlin')
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $url = 'http://freegeoip.net/json/' . $ip;
-    $userData = json_decode(file_get_contents($url));
-
-    date_default_timezone_set($userData->time_zone);
+    require_once './setTimeZone.php';
 
 	// Set language cookie when language change triggered
 	if( isset($_GET['lang']) ) {
