@@ -1,6 +1,12 @@
 <?php
-	require_once './classes/i18n/i18n.class.php';
-	$i18n = new i18n('./lang/lang_{LANGUAGE}.json', './langcache/', 'en');
+	require_once './vendor/i18n/i18n.class.php';
+	require_once './vendor/deviceDetection.php';
+    $device = new Mobile_Detect;
+	$i18n   = new i18n('./lang/lang_{LANGUAGE}.json', './langcache/', 'en');
+
+    //templates
+    require_once './templates/templateAbstract.php';
+    include_once './templates/main.php';
 
     //setting timezone based on ip (or you can hardcode it: 'Europe/Berlin')
     $ip = $_SERVER['REMOTE_ADDR'];
