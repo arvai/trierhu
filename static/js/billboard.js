@@ -6,7 +6,7 @@ const bootstrap = new Bootstrap();
 /**
  * Billboard handler class.
  * 'The next bus goes to Trier in...' project
- */ 
+ */
 export default class Billboard {
 
 	/**
@@ -76,7 +76,7 @@ export default class Billboard {
 	 * @returns {Promise}
 	 */
 	async fetchTimes() {
-		let response = await fetch(bootstrap.config.BACKEND + '/getData.php?xhr');
+		let response = await fetch(bootstrap.config.BACKEND + '/?xhr');
 		var data = await response.json();
 
 		if (response.ok) {

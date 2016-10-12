@@ -1,0 +1,9 @@
+{
+	"require": {
+		"mobiledetect/mobiledetectlib": "^2.8",
+		"philipp15b/php-i18n": "dev-master"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}

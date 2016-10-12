@@ -1,6 +1,8 @@
 /.idea
 /node_modules
 /bin
-/langcache
+/cache
+!/cache/.keepDir
 /mobiliteit-fetcher
 /trierhu-serverapp
+/vendor
