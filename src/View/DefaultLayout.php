@@ -33,7 +33,7 @@ class DefaultLayout
 <html>
 <head>
 	<title><?= L::meta_title ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= StaticHelper::getUrl('site.css')?>"/>
+	<link rel="stylesheet" type="text/css" href="<?= StaticHelper::getUrl('site.css') ?>"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 	<meta name="theme-color" content="#FE4365">
@@ -60,7 +60,8 @@ class DefaultLayout
 	<script>
 		window.config = {
 			next  : <?= $this->client->getNextToSeconds() ?>,
-			after : <?= $this->client->getAfterToSeconds() ?>
+			after : <?= $this->client->getAfterToSeconds() ?>,
+			HOST  : '<?= HOST ?>'
 		};
 	</script>
 </head>
@@ -69,8 +70,8 @@ class DefaultLayout
 
 <?php $this->template->render() ?>
 
-<script type="text/javascript" src="./static/js/vendor/favico.min.js"></script>
-<script type="text/javascript" src="<?= StaticHelper::getUrl('bundle.js')?>"></script>
+<script type="text/javascript" src="<?= StaticHelper::getUrl('favico.min.js') ?>"></script>
+<script type="text/javascript" src="<?= StaticHelper::getUrl('bundle.js') ?>"></script>
 
 <?php if (isProd()): ?>
 	<script>

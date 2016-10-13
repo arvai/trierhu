@@ -19,8 +19,8 @@ class MobiliteitClient
 			print $url;
 		}
 
-		$raw_data = file_get_contents($url);
-		$data     = json_decode($raw_data);
+		$rawContent = file_get_contents($url);
+		$data       = json_decode($rawContent);
 
 		if (isset($data->Departure[0]))
 		{
@@ -30,6 +30,7 @@ class MobiliteitClient
 		{
 			$this->nextBus = false;
 		}
+
 		if (isset($data->Departure[1]))
 		{
 			$this->afterBus = strtotime($data->Departure[1]->date . ' ' . $data->Departure[1]->time);
@@ -43,7 +44,7 @@ class MobiliteitClient
 	/**
 	 * Returns the current timestamp or a weekday if debug enabled.
 	 *
-	 * @return {int} Timestamp
+	 * @return int Timestamp
 	 */
 	public function getTime()
 	{
@@ -53,7 +54,7 @@ class MobiliteitClient
 	/**
 	 * Returns with the seconds of waiting time for the next bus
 	 *
-	 * @return {int}
+	 * @return int
 	 */
 	public function getNextToSeconds()
 	{
@@ -68,7 +69,7 @@ class MobiliteitClient
 	/**
 	 * Returns the waiting time after the next bus until the next-after bus
 	 *
-	 * @return {int}
+	 * @return int
 	 */
 	public function getAfterToSeconds()
 	{
@@ -83,7 +84,7 @@ class MobiliteitClient
 	/**
 	 * Returns with the next and after-next waiting time in a json encoded object
 	 *
-	 * @return {string}
+	 * @return string
 	 */
 	public function getXhrResponse()
 	{

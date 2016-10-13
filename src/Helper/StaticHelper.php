@@ -3,25 +3,32 @@
 class StaticHelper
 {
 	/**
-	 * Retuns with the versioned path&filename in the bin directory
+	 * Retuns with the versioned path&filename in the dist directory
 	 *
-	 * @TODO make it fail-safe
-	 *
-	 * @param string $fullFilename
+	 * @param string $filename
 	 *
 	 * @return string
 	 */
-	public static function getUrl($fullFilename)
+	public static function getUrl($filename)
 	{
-		$lastDotPos = strripos($fullFilename, '.');
-		$name       = substr($fullFilename, 0, $lastDotPos);
-		$ext        = substr($fullFilename, $lastDotPos);
+		$lastDotPos = strripos($filename, '.');
+		$name       = substr($filename, 0, $lastDotPos);
+		$ext        = substr($filename, $lastDotPos);
 
-		$glob = isProd() ? "./bin/" . $name . "-*" . $ext : "./bin/" . $name . $ext;
-
-		if (count($glob) > 0)
+		if (APPLICATION_ENV == 'dev')
 		{
-			return glob($glob)[0];
+			$glob = STATIC_PATH . '/' . $name . $ext;
+		}
+		else
+		{
+			$glob = STATIC_PATH . '/' . $name . '-*' . $ext;
+		}
+
+		$files = glob($glob);
+
+		if (!empty($files))
+		{
+			return str_replace(DOCUMENT_ROOT, '', current($files));
 		}
 
 		return '';

@@ -8,15 +8,15 @@ class MainTemplate implements TemplateInterface
 <div class="container">
 	<div class="langs">
 		<a href="/?lang=en">
-			<img src="./bin/gb.svg" alt="fb" title="en"/>
+			<img src="dist/gb.svg" alt="fb" title="en"/>
 		</a>
 
 		<a href="?lang=hu">
-			<img src="./bin/hu.svg" alt="hu" title="hu"/>
+			<img src="dist/hu.svg" alt="hu" title="hu"/>
 		</a>
 
 		<a href="?lang=ru">
-			<img src="./bin/ru.svg" alt="ru" title="ru"/>
+			<img src="dist/ru.svg" alt="ru" title="ru"/>
 		</a>
 	</div>
 
@@ -54,7 +54,7 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
 	</div>
 	<div class="github">
 		<a href="http://www.github.com/arvai/trierhu">
-			<img src="./bin/github.png" alt="Github Repo" title="Github Repo"/>
+			<img src="dist/github.png" alt="Github Repo" title="Github Repo"/>
 		</a>
 	</div>
 </div>

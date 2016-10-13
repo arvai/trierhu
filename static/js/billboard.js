@@ -76,7 +76,7 @@ export default class Billboard {
 	 * @returns {Promise}
 	 */
 	async fetchTimes() {
-		let response = await fetch(bootstrap.config.BACKEND + '/?xhr');
+		let response = await fetch(bootstrap.config.HOST + '/?xhr');
 		var data = await response.json();
 
 		if (response.ok) {

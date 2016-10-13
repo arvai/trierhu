@@ -10,7 +10,7 @@ var argv = require('yargs').argv;
 var rev = require('gulp-rev');
 var revdel = require('gulp-rev-delete-original');
 
-var ENV   = argv.dev ? 'dev' : 'prod';
+var ENV = argv.dev ? 'dev' : 'prod';
 var isDev = (ENV === 'dev');
 var isProd = (ENV === 'prod');
 
@@ -18,7 +18,7 @@ var isProd = (ENV === 'prod');
 gulp.task('default', ['bundle', 'sass', 'copy']);
 
 // SASS build
-gulp.task('sass', function() {
+gulp.task('sass', function () {
 	return gulp.src('static/scss/*.scss')
 		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(sass({outputStyle: 'compressed'}))
@@ -27,23 +27,23 @@ gulp.task('sass', function() {
 		.pipe(concat('site.css'))
 		.pipe(gulpif(isProd, rev()))
 		.pipe(gulpif(isProd, revdel()))
-		.pipe(gulp.dest('bin'))
+		.pipe(gulp.dest('web/dist'))
 });
 
 // ES6 - JS build process
 gulp.task("es6", function () {
-  return gulp.src("static/js/*.js")
-    .pipe(babel({
+	return gulp.src("static/js/*.js")
+		.pipe(babel({
 			presets: ['es2015'],
-			plugins: ["transform-runtime","syntax-async-functions","transform-regenerator"]
+			plugins: ["transform-runtime", "syntax-async-functions", "transform-regenerator"]
 		}))
-	.pipe(gulp.dest("bin"));
+		.pipe(gulp.dest("web/dist"));
 });
 
 // CREATE WEBPACK PLUGINS ARRAY
 var webpackPugins = [];
 // Set variable for the app
-webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}));
+webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"' + ENV + '"'}));
 // Uglify bundle on prod
 webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
 // No duplicated dependencies
@@ -52,32 +52,32 @@ webpackPugins.push(new plugin.optimize.DedupePlugin());
 webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en-gb|hu|ru|hi)/));
 // Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
 webpackPugins.push(new plugin.ProvidePlugin({
-					'Promise': 'exports?global.Promise!es6-promise',
-					'fetch': 'exports?self.fetch!whatwg-fetch'
-				}));
+	'Promise': 'exports?global.Promise!es6-promise',
+	'fetch': 'exports?self.fetch!whatwg-fetch'
+}));
 
 // Create bundle - webpack
-gulp.task('bundle', ['es6'], function() {
-	return gulp.src('bin/index.js')
+gulp.task('bundle', ['es6'], function () {
+	return gulp.src('web/dist/index.js')
 		.pipe(webpack({
 			output: {
-        		filename: "bundle.js"
+				filename: "bundle.js"
 			},
 			plugins: webpackPugins
 		}))
 		.pipe(gulpif(isProd, rev()))
 		.pipe(gulpif(isProd, revdel()))
-		.pipe(gulp.dest('bin/'));
+		.pipe(gulp.dest('web/dist/'));
 });
 
 // Watcher task for css and js
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 	gulp.watch('static/scss/*.scss', ['sass']);
 	gulp.watch('static/js/*.js', ['bundle']);
 });
 
-// Copy static files to bin directory
-gulp.task('copy', function() {
-	gulp.src('./static/img/*.*')
-    .pipe(gulp.dest('./bin'));
+// Copy static files to dist directory
+gulp.task('copy', function () {
+	gulp.src(['./static/img/*.*', './static/js/vendor/*.js'])
+		.pipe(gulp.dest('./web/dist'));
 });

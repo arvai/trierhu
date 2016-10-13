@@ -4,6 +4,11 @@ require __DIR__ . '/../vendor/autoload.php';
 
 date_default_timezone_set('Europe/Berlin');
 
+define('DOCUMENT_ROOT', realpath(__DIR__ . '/../web'));
+define('STATIC_PATH', DOCUMENT_ROOT . '/dist');
+define('APPLICATION_ENV', isProd() ? 'prod' : 'dev');
+define('HOST', isProd() ? 'http://www.trier.hu' : 'http://' . $_SERVER['HTTP_HOST']);
+
 $apiGet = new MobiliteitClient();
 
 // If Ajax request.
@@ -44,10 +49,11 @@ $langFilePath        = str_replace('{LANGUAGE}', $i18n->getAppliedLang(), realpa
 $config              = json_decode(file_get_contents($langFilePath), true);
 $languageFileContent = json_encode($config, JSON_UNESCAPED_UNICODE);
 
-function isProd()
-{
-	return strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0;
-}
-
 $layout = new DefaultLayout(new MainTemplate(), $i18n, $apiGet);
 $layout->render($languageFileContent);
+
+function isProd()
+{
+	return strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0
+		&& strpos($_SERVER['HTTP_HOST'], 'localhost') !== 0;
+}
