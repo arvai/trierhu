@@ -25,3 +25,7 @@ Utilities for the people, experience for the developers.
 
 ##### 2016. 10. 09.
 * gzip enabled on assets (server config)
+
+##### 2016. 10. 13.
+* PageInsight optimizations
+* Enable asset caching in nginx

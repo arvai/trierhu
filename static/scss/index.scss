@@ -16,17 +16,26 @@ $brick: #D95B43;
 
 		a {
 			text-decoration: none;
+			display: inline-block;
+
+			&:nth-child(-n+2) {
+				@media screen and (max-width: 700px) {
+					margin-right: 7px;
+				}
+			}
 		}
 
 		img {
-			width: 25px;
+			display: inline-block;
+			width: 25px!important;
 		}
 	}
 
 
 	.billboard {
 		display: table;
-		height: 50vh;
+		position: relative;
+		height: 45vh;
 		margin: 10vh auto 0 auto;
 
 		&--row {
@@ -38,8 +47,16 @@ $brick: #D95B43;
 			margin: 0 auto 5rem auto;
 
 			&__green {
-				display: none; // Temporarily hidden
 				background: $myGreen;
+
+				&.routeTip {
+					font-size: 1.8rem;
+					padding: 0.8rem;
+					position: absolute;
+					bottom: 1rem;
+					right: 0;
+					margin: 0;
+				}
 			}
 
 			&__pink {
@@ -88,7 +105,7 @@ $brick: #D95B43;
 	}
 
 	.whatsnew {
-		width: 50%;
+		width: 70%;
 		margin: 3rem auto 7rem auto;
 		background: $brick;
 		padding: 1rem;
