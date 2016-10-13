@@ -7,9 +7,10 @@
 <html>
 <head>
 	<title><?= L::meta_title ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= getVersioned('site.css')?>"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+	<link rel="stylesheet" type="text/css"
+		  href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic">
+	<link rel="stylesheet" type="text/css" href="<?= getVersioned('site.css')?>"/>
 	<meta name="theme-color" content="#FE4365">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-title" content="Trier.hu">
@@ -41,8 +42,8 @@
 </head>
 <body class="index">
 <?php new MainTemplate() ?>
-<script type="text/javascript" src="./static/js/vendor/favico.min.js"></script>
-<script type="text/javascript" src="<?= getVersioned('bundle.js')?>"></script>
+<script async type="text/javascript" src="./static/js/vendor/favico.min.js"></script>
+<script async type="text/javascript" src="<?= getVersioned('bundle.js')?>"></script>
 <?php
 // Check if http://dev.trier.hu
 if (isProd()):

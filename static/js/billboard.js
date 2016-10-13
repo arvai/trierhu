@@ -13,7 +13,7 @@ export default class Billboard {
 	* Constructor
 	*/
 	constructor() {
-		this.BILLBOARD_REFRESH_INTERVAL = 2000;
+		this.BILLBOARD_REFRESH_INTERVAL = 5000;
 
 		this.next  = bootstrap.config.next;
 		this.after = bootstrap.config.after;
@@ -37,7 +37,7 @@ export default class Billboard {
 			let favicon = new Favico({
 				animation:'fade'
 			});
-			let num = moment.duration({ seconds: this.next}).minutes();
+			let num = moment.duration({ seconds: this.next }).minutes();
 			favicon.badge(num);
 		}
 
