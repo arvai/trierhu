@@ -22,7 +22,7 @@ export default class Billboard {
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
 		this.afterDisplayEl      = document.querySelector('.ribbon p:last-child span');
 
-		moment.locale(window.langCode);
+		moment.locale(window.locale);
 
 		this.fillTimeContainers();
 		this.startRefreshInterval();
@@ -51,11 +51,10 @@ export default class Billboard {
 	*/
 	getNextbusStr() {
 		if (this.next > -1) {
-			let nextStr = moment.duration({ seconds: this.next }).humanize(true);
-			return nextStr;
+			return moment.duration({ seconds: this.next }).humanize(true);
 		}
 
-		return window.lang.no_more_buses_today;
+		return "No more buses today :(";
 	}
 
 	/**
@@ -64,11 +63,10 @@ export default class Billboard {
 	 */
 	getAfterStr() {
 		if (this.after > -1) {
-			let afterStr = moment.duration({ seconds: this.after }).humanize(false);
-			return afterStr;
+			return moment.duration({ seconds: this.after }).humanize(false);
 		}
 
-		return window.lang.billboard.a_lot;
+		return "a lot";
 	}
 
 	/**
@@ -76,7 +74,7 @@ export default class Billboard {
 	 * @returns {Promise}
 	 */
 	async fetchTimes() {
-		let response = await fetch(bootstrap.config.HOST + '/?xhr');
+		let response = await fetch(bootstrap.config.HOST + '/refresh');
 		var data = await response.json();
 
 		if (response.ok) {

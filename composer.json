@@ -1,7 +1,9 @@
 {
 	"require": {
-		"mobiledetect/mobiledetectlib": "^2.8",
-		"philipp15b/php-i18n": "dev-master"
+		"slim/slim": "^3.5",
+		"slim/twig-view": "^2.1",
+		"symfony/translation": "^3.1",
+		"symfony/twig-bridge": "^3.1"
 	},
 	"autoload": {
 		"classmap": ["src/"]
