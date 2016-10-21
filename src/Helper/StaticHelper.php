@@ -3,7 +3,9 @@
 class StaticHelper
 {
 	/**
-	 * Retuns with the versioned path&filename in the dist directory
+	 * Returns with the versioned path&filename in the dist directory.
+	 *
+	 * @todo Implement environment configurable static path.
 	 *
 	 * @param string $filename
 	 *

@@ -5,28 +5,24 @@ class DefaultLayout
 	/** @var TemplateInterface */
 	private $template;
 
-	/** @var i18n */
-	private $i18n;
-
-	/** @var MobiliteitClient */
-	private $client;
+	/** @var array */
+	private $config;
 
 	/**
 	 * @param TemplateInterface $template
-	 * @param i18n              $i18n
-	 * @param MobiliteitClient  $client
+	 * @param array             $config
 	 */
-	public function __construct(TemplateInterface $template, i18n $i18n, MobiliteitClient $client)
+	public function __construct(TemplateInterface $template, array $config)
 	{
 		$this->template = $template;
-		$this->i18n     = $i18n;
-		$this->client   = $client;
+		$this->config   = $config;
 	}
 
 	/**
+	 * @param string $languageCode
 	 * @param string $languageFileContent
 	 */
-	public function render($languageFileContent)
+	public function render($languageCode, $languageFileContent)
 	{
 ?>
 <!DOCTYPE html>
@@ -54,15 +50,9 @@ class DefaultLayout
 	<meta charset="utf-8">
 
 	<script type="text/javascript">
-		window.lang = '<?= $languageFileContent ?>';
-		window.lang.langCode = '<?= $this->i18n->getAppliedLang() ?>';
-	</script>
-	<script>
-		window.config = {
-			next  : <?= $this->client->getNextToSeconds() ?>,
-			after : <?= $this->client->getAfterToSeconds() ?>,
-			HOST  : '<?= HOST ?>'
-		};
+		window.lang     = '<?= $languageFileContent ?>';
+		window.langCode = '<?= $languageCode ?>';
+		window.config   = <?= json_encode($this->config) ?>;
 	</script>
 </head>
 
@@ -73,7 +63,7 @@ class DefaultLayout
 <script type="text/javascript" src="<?= StaticHelper::getUrl('favico.min.js') ?>"></script>
 <script type="text/javascript" src="<?= StaticHelper::getUrl('bundle.js') ?>"></script>
 
-<?php if (isProd()): ?>
+<?php if (APPLICATION_ENV == 'prod'): ?>
 	<script>
 		(function (i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;

@@ -4,22 +4,22 @@ require __DIR__ . '/../vendor/autoload.php';
 
 date_default_timezone_set('Europe/Berlin');
 
+// Check host to find out the environment.
+$isProduction = strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0
+	&& strpos($_SERVER['HTTP_HOST'], 'localhost') !== 0;
+
 define('DOCUMENT_ROOT', realpath(__DIR__ . '/../web'));
 define('STATIC_PATH', DOCUMENT_ROOT . '/dist');
-define('APPLICATION_ENV', isProd() ? 'prod' : 'dev');
-define('HOST', isProd() ? 'http://www.trier.hu' : 'http://' . $_SERVER['HTTP_HOST']);
+define('APPLICATION_ENV', $isProduction ? 'prod' : 'dev');
 
-$apiGet = new MobiliteitClient();
+$apiClient = new MobiliteitClient();
 
 // If Ajax request.
 if (isset($_GET['xhr']))
 {
 	header('Content-Type: application/json');
-	die($apiGet->getXhrResponse());
+	die($apiClient->getXhrResponse());
 }
-
-$device = new Mobile_Detect;
-$i18n   = new i18n(realpath(__DIR__ . '/../lang/') . '/lang_{LANGUAGE}.json', realpath(__DIR__ . '/../cache/'), 'en');
 
 // Set language cookie when language change triggered.
 if (isset($_GET['lang']))
@@ -41,6 +41,7 @@ else
 	$language = 'en';
 }
 
+$i18n = new i18n(realpath(__DIR__ . '/../lang/') . '/lang_{LANGUAGE}.json', realpath(__DIR__ . '/../cache/'), 'en');
 $i18n->setForcedLang($language);
 $i18n->init();
 
@@ -49,11 +50,11 @@ $langFilePath        = str_replace('{LANGUAGE}', $i18n->getAppliedLang(), realpa
 $config              = json_decode(file_get_contents($langFilePath), true);
 $languageFileContent = json_encode($config, JSON_UNESCAPED_UNICODE);
 
-$layout = new DefaultLayout(new MainTemplate(), $i18n, $apiGet);
-$layout->render($languageFileContent);
+$config = array(
+	'next'  => $apiClient->getNextToSeconds(),
+	'after' => $apiClient->getAfterToSeconds(),
+	'HOST'  => 'http://' . $_SERVER['HTTP_HOST']
+);
 
-function isProd()
-{
-	return strpos($_SERVER['HTTP_HOST'], 'dev.') !== 0
-		&& strpos($_SERVER['HTTP_HOST'], 'localhost') !== 0;
-}
+$layout = new DefaultLayout(new MainTemplate(), $config);
+$layout->render($i18n->getAppliedLang(), $languageFileContent);

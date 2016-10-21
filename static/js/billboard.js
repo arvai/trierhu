@@ -22,7 +22,7 @@ export default class Billboard {
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
 		this.afterDisplayEl      = document.querySelector('.ribbon p:last-child span');
 
-		moment.locale(window.lang.langCode);
+		moment.locale(window.langCode);
 
 		this.fillTimeContainers();
 		this.startRefreshInterval();
