@@ -28,12 +28,10 @@ $app->get(
 			'index.twig',
 			array(
 				'locale' => $locale,
-				'config' => json_encode(
-					array(
-						'next'  => $this->client->getNextToSeconds(),
-						'after' => $this->client->getAfterToSeconds(),
-						'HOST'  => 'http://' . $_SERVER['HTTP_HOST']
-					)
+				'config' => array(
+					'next'  => $this->client->getNextToSeconds(),
+					'after' => $this->client->getAfterToSeconds(),
+					'HOST'  => 'http://' . $_SERVER['HTTP_HOST']
 				),
 			)
 		);

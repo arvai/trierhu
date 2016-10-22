@@ -54,7 +54,7 @@ export default class Billboard {
 			return moment.duration({ seconds: this.next }).humanize(true);
 		}
 
-		return "No more buses today :(";
+		return window.translation.no_more_buses_today;
 	}
 
 	/**
@@ -66,7 +66,7 @@ export default class Billboard {
 			return moment.duration({ seconds: this.after }).humanize(false);
 		}
 
-		return "a lot";
+		return window.translation["billboard.a_lot"];
 	}
 
 	/**

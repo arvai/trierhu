@@ -5,7 +5,6 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Component\Translation\Loader\PhpFileLoader;
-use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
 $container = $app->getContainer();
@@ -18,10 +17,14 @@ $container['view'] = function ($container)
 		$container['settings']['view.twigSettings']
 	);
 
+	/** @var Translator $translator */
+	$translator = $container['translator'];
+
 	$view->addExtension(new TwigExtension($container['router'], ''));
-	$view->addExtension(new TranslationExtension($container['translator']));
+	$view->addExtension(new TranslationExtension($translator));
 
 	$view->getEnvironment()->addGlobal('isAnalyticsEnabled', $container['settings']['isAnalyticsEnabled']);
+	$view->getEnvironment()->addGlobal('translations', $translator->getCatalogue()->all('messages'));
 
 	return $view;
 };
@@ -51,7 +54,7 @@ $container['translator'] = function ($container)
 		$locale = 'en_GB';
 	}
 
-	$translator = new Translator($locale, new MessageSelector());
+	$translator = new Translator($locale);
 	$translator->setFallbackLocales(['en_GB']);
 	$translator->addLoader('php', new PhpFileLoader());
 	$translator->addResource('php', __DIR__ . '/../lang/en_GB.php', 'en_GB');
