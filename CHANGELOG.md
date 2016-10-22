@@ -1,10 +1,12 @@
 # 2016. 10. 22.
+* Changed document root: /web.
 * PHP package handling with composer.
 * Slim Framework for backend.
 * Twig templates.
 * Improved translation handling.
 * Optimized gulp process.
 * 404 page handling.
+* Static file revision handling.
 
 # 2016. 10. 09.
 * gzip enabled on assets (server config)
