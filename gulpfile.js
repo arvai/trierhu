@@ -83,8 +83,14 @@ gulp.task("es6", function () {
 
 // Generate static file revisions and rev-manifest.json file.
 gulp.task('revision', ['sass', 'image', 'bundle'], function () {
-	return gulp.src('web/dist/**')
-		.pipe(rev.revision({ includeFilesInManifest: ['.css', '.js', '.png', '.svg'] }))
+	return gulp.src(['web/dist/**', '!web/dist/favicons/**'])
+		.pipe(
+			rev.revision(
+				{
+					includeFilesInManifest: ['.css', '.js', '.png', '.svg'],
+				}
+			)
+		)
 		.pipe(revdel())
 		.pipe(gulp.dest('web/dist'))
 		.pipe(rev.versionFile())

@@ -54,23 +54,23 @@ $container['view.function.static'] = function ($container)
 
 			if (empty($manifestFilePath) || !file_exists($manifestFilePath))
 			{
-				return './dist/' . $filename;
+				return '/dist/' . $filename;
 			}
 
 			$fileContent = file_get_contents($manifestFilePath);
 			if (!$fileContent)
 			{
-				return './dist/' . $filename;
+				return '/dist/' . $filename;
 			}
 
 			$assets = json_decode($fileContent, true);
 
 			if (!isset($assets[$filename]))
 			{
-				return './dist/' . $filename;
+				return '/dist/' . $filename;
 			}
 
-			return './dist/' . $assets[$filename];
+			return '/dist/' . $assets[$filename];
 		}
 	);
 };
