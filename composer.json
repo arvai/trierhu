@@ -6,6 +6,8 @@
 		"symfony/twig-bridge": "^3.1"
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"psr-4": {
+			"TrierHu\\Portal\\": "src/"
+		}
 	}
 }

@@ -1,8 +1,9 @@
 /.idea
 /node_modules
-/web/dist
 /cache
 !/cache/.keepDir
+/static/build
 /mobiliteit-fetcher
 /trierhu-serverapp
 /vendor
+/web/dist

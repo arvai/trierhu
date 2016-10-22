@@ -1,5 +1,7 @@
 <?php
 
+namespace TrierHu\Portal\HttpClient;
+
 class MobiliteitClient
 {
 	public function __construct()

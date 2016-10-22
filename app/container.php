@@ -6,8 +6,20 @@ use Slim\Views\TwigExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\Translator;
+use TrierHu\Portal\HttpClient\MobiliteitClient;
+use TrierHu\Portal\NotFoundHandler;
 
 $container = $app->getContainer();
+
+$container['notFoundHandler'] = function ($c)
+{
+	return new NotFoundHandler(
+		function ($request, $response) use ($c)
+		{
+			return $c['response']->withStatus(404);
+		}
+	);
+};
 
 // Twig configuration.
 $container['view'] = function ($container)
@@ -23,16 +35,44 @@ $container['view'] = function ($container)
 	$view->addExtension(new TwigExtension($container['router'], ''));
 	$view->addExtension(new TranslationExtension($translator));
 
+	$view->getEnvironment()->addFunction($container['view.function.static']);
+
 	$view->getEnvironment()->addGlobal('isAnalyticsEnabled', $container['settings']['isAnalyticsEnabled']);
 	$view->getEnvironment()->addGlobal('translations', $translator->getCatalogue()->all('messages'));
 
 	return $view;
 };
 
-// API Client configuration.
-$container['client'] = function ()
+// Static filter configuration.
+$container['view.function.static'] = function ($container)
 {
-	return new MobiliteitClient();
+	return new Twig_SimpleFunction(
+		'static',
+		function ($filename) use ($container)
+		{
+			$manifestFilePath = $container['settings']['path.static.manifest'];
+
+			if (empty($manifestFilePath) || !file_exists($manifestFilePath))
+			{
+				return './dist/' . $filename;
+			}
+
+			$fileContent = file_get_contents($manifestFilePath);
+			if (!$fileContent)
+			{
+				return './dist/' . $filename;
+			}
+
+			$assets = json_decode($fileContent, true);
+
+			if (!isset($assets[$filename]))
+			{
+				return './dist/' . $filename;
+			}
+
+			return './dist/' . $assets[$filename];
+		}
+	);
 };
 
 // Translator configuration.
@@ -63,4 +103,10 @@ $container['translator'] = function ($container)
 	$translator->addResource('php', __DIR__ . '/../lang/hi_HI.php', 'hi_HI');
 
 	return $translator;
+};
+
+// API Client configuration.
+$container['client'] = function ()
+{
+	return new MobiliteitClient();
 };

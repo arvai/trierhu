@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>{{ "meta.title"|trans }}</title>
-	<link rel="stylesheet" type="text/css" href="/dist/site.css"/>
+	<link rel="stylesheet" type="text/css" href="{{ static('site.css') }}"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 	<meta name="theme-color" content="#FE4365">
@@ -37,8 +37,8 @@
 
 </div>
 
-<script type="text/javascript" src="/dist/favico.min.js"></script>
-<script type="text/javascript" src="/dist/bundle.js"></script>
+<script type="text/javascript" src="{{ static('favico.min.js') }}"></script>
+<script type="text/javascript" src="{{ static('bundle.js') }}"></script>
 
 {% if isAnalyticsEnabled %}
 	<script>

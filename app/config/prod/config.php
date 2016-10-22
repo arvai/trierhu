@@ -9,4 +9,6 @@ return array(
 	'view.twigSettings' => array(
 		'cache' => realpath(__DIR__ . '/../../../cache')
 	),
+
+	'path.static.manifest' => realpath(__DIR__ . '/../../../static/build/rev-manifest.json'),
 );

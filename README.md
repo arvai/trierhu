@@ -11,6 +11,7 @@ Utilities for the people, experience for the developers.
 * WebPack
 * Gulp
 * SASS
-* Composer
+* Slim
+* Twig
 
 [Trier.hu](http://www.trier.hu)
