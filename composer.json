@@ -1,0 +1,13 @@
+{
+	"require": {
+		"slim/slim": "^3.5",
+		"slim/twig-view": "^2.1",
+		"symfony/translation": "^3.1",
+		"symfony/twig-bridge": "^3.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"TrierHu\\Portal\\": "src/"
+		}
+	}
+}
