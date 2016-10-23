@@ -1,7 +1,7 @@
 import Bootstrap from './bootstrap';
 import * as moment from 'moment';
-
-const bootstrap = new Bootstrap();
+import sweetalert from 'sweetalert';
+import isMobile from 'ismobilejs';
 
 /**
  * Billboard handler class.
@@ -15,8 +15,8 @@ export default class Billboard {
 	constructor() {
 		this.BILLBOARD_REFRESH_INTERVAL = 10000;
 
-		this.next  = bootstrap.config.next;
-		this.after = bootstrap.config.after;
+		this.next  = Bootstrap.config().next;
+		this.after = Bootstrap.config().after;
 
 		this.ribbonEl            = document.querySelector('.ribbon');
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
@@ -26,6 +26,18 @@ export default class Billboard {
 
 		this.fillTimeContainers();
 		this.startRefreshInterval();
+		this.alertHomeScreen();
+	}
+
+	/**
+	 * Overlay for raise attention to the 'Add homescreen' function
+	 */
+	alertHomeScreen() {
+		if ( isMobile.any ) {
+			Bootstrap.setCookie('homeScreen', 'true');
+			console.log(Bootstrap.getCookie('homeScreen'));
+			sweetalert("Did you know?", "You can add the application to your home screen!", "info");
+		}
 	}
 
 	/**
