@@ -9,7 +9,6 @@ var gulpif = require('gulp-if');
 var webpack = require('webpack-stream');
 var plugin = require('webpack');
 var argv = require('yargs').argv;
-var flatten = require('gulp-flatten');
 var clean      = require('gulp-clean');
 
 var ENV = argv.dev ? 'dev' : 'prod';
@@ -54,9 +53,7 @@ gulp.task('sass', ['clean-sass'], function () {
 
 // COPY ASSETS TO DIST
 gulp.task('assets', ['clean-image'], function () {
-	// @TODO I hope node_modules' css files won't overwrite each other... :) Fix it later.
 	return gulp.src(['static/img/**/*.*', 'node_modules/**/*.css'])
-		.pipe(flatten())
 		.pipe(gulp.dest('web/dist'))
 });
 
