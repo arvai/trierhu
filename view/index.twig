@@ -1,24 +1,26 @@
 {% extends "default.layout.twig" %}
 
 {% block content %}
+	<!-- Styles for google optimization before css externals loaded and rendered -->
 	<div class="langs">
 		<a href="/?locale=en_GB">
-			<img src="{{ static('gb.svg') }}" alt="fb" title="en"/>
+			<img src="{{ static('gb.svg') }}" alt="fb" title="en" style="max-height: 100px" />
 		</a>
 
 		<a href="?locale=hu_HU">
-			<img src="{{ static('hu.svg') }}" alt="hu" title="hu"/>
+			<img src="{{ static('hu.svg') }}" alt="hu" title="hu" style="max-height: 100px"  />
 		</a>
 
 		<a href="?locale=ru_RU">
-			<img src="{{ static('ru.svg') }}" alt="ru" title="ru"/>
+			<img src="{{ static('ru.svg') }}" alt="ru" title="ru" style="max-height: 100px" />
 		</a>
 	</div>
 
 	<div class="billboard">
 		<p class="billboard--row billboard--row__brick">{{ "the_next_bus"|trans }}</p>
 		<p class="billboard--row billboard--row__pink">{{ "goes_to_trier"|trans }}*</p>
-		<p class="billboard--row billboard--row__green">{{ "billboard.in"|trans }}</p>
+		<!--<p class="billboard--row billboard--row__green">{{ "billboard.in"|trans }}</p>-->
+		<p class="billboard--row billboard--row__green routeTip"> * {{ "from_luxembourg_johnfkennedy"|trans }}</p>
 	</div>
 
 	<div class="ribbon">
@@ -34,7 +36,7 @@
 					<li>Optimized and more precise functionality</li>
 					<li>New meta description and title <br> (&nbsp;<svg class="heart" viewBox="0 0 32 29.6">
 						<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
-	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" style="max-height: 100px"/>
 					</svg>&nbsp;Google )</li>
 					<li>Mobile Web App capability, icons (Add to home screen)</li>
 					<li>Minute countdown on the favicon</li>
@@ -44,9 +46,6 @@
 		</ul>
 	</div>
 
-	<div class="info">
-		* {{ "from_luxembourg_johnfkennedy"|trans }}
-	</div>
 	<div class="github">
 		<a href="http://www.github.com/arvai/trierhu">
 			<img src="{{ static('github.png') }}" alt="Github Repo" title="Github Repo"/>

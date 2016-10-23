@@ -1,3 +1,9 @@
+# 2016. 10. 23.
+* Build process: copy node_modules' css files to dist
+* SweetAlert message 'Add it to your homescreen' on mobile
+* Added isMobileJS package
+* Fixed GitHub issue #47 (deleting previously compiled files)
+
 # 2016. 10. 22.
 * Changed document root: /web.
 * PHP package handling with composer.
@@ -7,6 +13,10 @@
 * Optimized gulp process.
 * 404 page handling.
 * Static file revision handling.
+
+# 2016. 10. 14. 
+* PageInsight optimizations 
+* Enable asset caching in nginx
 
 # 2016. 10. 09.
 * gzip enabled on assets (server config)

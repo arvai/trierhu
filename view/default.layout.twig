@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>{{ "meta.title"|trans }}</title>
+	<link rel="stylesheet" type="text/css" href="{{ static('sweetalert.css') }}"/>
 	<link rel="stylesheet" type="text/css" href="{{ static('site.css') }}"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -37,7 +38,7 @@
 
 </div>
 
-<script type="text/javascript" src="{{ static('favico.min.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.min.js"></script>
 <script type="text/javascript" src="{{ static('bundle.js') }}"></script>
 
 {% if isAnalyticsEnabled %}

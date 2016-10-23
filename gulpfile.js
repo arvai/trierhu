@@ -1,22 +1,23 @@
-var gulp       = require('gulp');
-var babel      = require("gulp-babel");
-var sass       = require('gulp-sass');
-var concat     = require('gulp-concat');
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var sass = require('gulp-sass');
+var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
-var rev        = require('gulp-rev-all');
-var revdel     = require('gulp-rev-delete-original');
-var gulpif     = require('gulp-if');
+var rev = require('gulp-rev-all');
+var revdel = require('gulp-rev-delete-original');
+var gulpif = require('gulp-if');
+var webpack = require('webpack-stream');
+var plugin = require('webpack');
+var argv = require('yargs').argv;
+var flatten = require('gulp-flatten');
 var clean      = require('gulp-clean');
-var webpack    = require('webpack-stream');
-var plugin     = require('webpack');
-var argv       = require('yargs').argv;
 
 var ENV = argv.dev ? 'dev' : 'prod';
 var isDev = (ENV === 'dev');
 var buildProcess = [];
 
 if (ENV === 'dev') {
-	buildProcess = ['sass', 'image', 'bundle'];
+	buildProcess = ['sass', 'assets', 'bundle'];
 }
 else {
 	buildProcess = ['revision'];
@@ -50,9 +51,12 @@ gulp.task('sass', ['clean-sass'], function () {
 		.pipe(gulp.dest('web/dist'))
 });
 
-// SASS build with source map.
-gulp.task('image', ['clean-image'], function () {
-	return gulp.src('static/img/**/*.*')
+
+// COPY ASSETS TO DIST
+gulp.task('assets', ['clean-image'], function () {
+	// @TODO I hope node_modules' css files won't overwrite each other... :) Fix it later.
+	return gulp.src(['static/img/**/*.*', 'node_modules/**/*.css'])
+		.pipe(flatten())
 		.pipe(gulp.dest('web/dist'))
 });
 
@@ -61,7 +65,7 @@ var webpackPugins = [];
 // Set variable for the app
 webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"' + ENV + '"'}));
 // Uglify bundle on prod
-webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
+!isDev && webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
 // No duplicated dependencies
 webpackPugins.push(new plugin.optimize.DedupePlugin());
 // Only english locale for MomentJS
@@ -86,9 +90,6 @@ gulp.task('bundle', ['es6'], function () {
 
 // ES6 - JS build process.
 gulp.task("es6", ['clean-script'], function () {
-	gulp.src('./static/js/vendor/*.js')
-		.pipe(gulp.dest('web/dist'));
-
 	return gulp.src('static/js/*.js')
 		.pipe(babel({
 			presets: ['es2015'],
@@ -98,7 +99,7 @@ gulp.task("es6", ['clean-script'], function () {
 });
 
 // Generate static file revisions and rev-manifest.json file.
-gulp.task('revision', ['sass', 'image', 'bundle'], function () {
+gulp.task('revision', ['sass', 'assets', 'bundle'], function () {
 	return gulp.src(['web/dist/**', '!web/dist/favicons/**'])
 		.pipe(
 			rev.revision(
@@ -119,5 +120,5 @@ gulp.task('revision', ['sass', 'image', 'bundle'], function () {
 gulp.task('watch', function () {
 	gulp.watch('static/scss/**/*.scss', ['sass']);
 	gulp.watch('static/js/**/*.js', ['bundle']);
-	gulp.watch('static/img/**/*.*', ['image']);
+	gulp.watch('static/img/**/*.*', ['assets']);
 });

@@ -8,7 +8,7 @@ return array(
 	'goes_to_trier'                      => 'goes to Trier',
 	'from_luxembourg_johnfkennedy'       => 'From Luxembourg - John F. Kennedy',
 	'hurry_up_you_have_to_wait_after_it' => 'Hurry up! You have to wait <span></span> after it!',
-	'no_more_buses_today'                => 'No more buses today  =>(',
+	'no_more_buses_today'                => 'No more buses today  :(',
 	'billboard'                          => array(
 		'in'    => 'in',
 		'a_lot' => 'a lot',

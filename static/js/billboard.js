@@ -1,7 +1,7 @@
 import Bootstrap from './bootstrap';
 import * as moment from 'moment';
-
-const bootstrap = new Bootstrap();
+import sweetalert from 'sweetalert';
+import isMobile from 'ismobilejs';
 
 /**
  * Billboard handler class.
@@ -13,10 +13,10 @@ export default class Billboard {
 	* Constructor
 	*/
 	constructor() {
-		this.BILLBOARD_REFRESH_INTERVAL = 2000;
+		this.BILLBOARD_REFRESH_INTERVAL = 10000;
 
-		this.next  = bootstrap.config.next;
-		this.after = bootstrap.config.after;
+		this.next  = Bootstrap.config().next;
+		this.after = Bootstrap.config().after;
 
 		this.ribbonEl            = document.querySelector('.ribbon');
 		this.nextbusDisplayEl    = document.querySelector('.ribbon p');
@@ -26,6 +26,19 @@ export default class Billboard {
 
 		this.fillTimeContainers();
 		this.startRefreshInterval();
+		this.alertHomeScreen();
+	}
+
+	/**
+	 * Overlay for raise attention to the 'Add homescreen' function
+	 */
+	alertHomeScreen() {
+		let alreadyShowed = Bootstrap.getCookie('homeScreen');
+		if ( isMobile.any && !alreadyShowed ) {
+			Bootstrap.createCookie('homeScreen', 'true');
+			//@TODO lang later
+			sweetalert("Did you know?", "You can add the application to your home screen!", "info");
+		}
 	}
 
 	/**
@@ -37,7 +50,7 @@ export default class Billboard {
 			let favicon = new Favico({
 				animation:'fade'
 			});
-			let num = moment.duration({ seconds: this.next}).minutes();
+			let num = moment.duration({ seconds: this.next }).minutes();
 			favicon.badge(num);
 		}
 
@@ -74,7 +87,7 @@ export default class Billboard {
 	 * @returns {Promise}
 	 */
 	async fetchTimes() {
-		let response = await fetch(bootstrap.config.HOST + '/refresh');
+		let response = await fetch(Bootstrap.config().HOST + '/refresh');
 		var data = await response.json();
 
 		if (response.ok) {
