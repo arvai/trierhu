@@ -33,9 +33,10 @@ export default class Billboard {
 	 * Overlay for raise attention to the 'Add homescreen' function
 	 */
 	alertHomeScreen() {
-		if ( isMobile.any ) {
-			Bootstrap.setCookie('homeScreen', 'true');
-			console.log(Bootstrap.getCookie('homeScreen'));
+		let alreadyShowed = Bootstrap.getCookie('homeScreen');
+		if ( isMobile.any && !alreadyShowed ) {
+			Bootstrap.createCookie('homeScreen', 'true');
+			//@TODO lang later
 			sweetalert("Did you know?", "You can add the application to your home screen!", "info");
 		}
 	}
@@ -86,7 +87,7 @@ export default class Billboard {
 	 * @returns {Promise}
 	 */
 	async fetchTimes() {
-		let response = await fetch(bootstrap.config.HOST + '/refresh');
+		let response = await fetch(Bootstrap.config().HOST + '/refresh');
 		var data = await response.json();
 
 		if (response.ok) {

@@ -1,17 +1,3 @@
-<<<<<<< Updated upstream
-var gulp       = require('gulp');
-var babel      = require("gulp-babel");
-var sass       = require('gulp-sass');
-var concat     = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var rev        = require('gulp-rev-all');
-var revdel     = require('gulp-rev-delete-original');
-var gulpif     = require('gulp-if');
-var clean      = require('gulp-clean');
-var webpack    = require('webpack-stream');
-var plugin     = require('webpack');
-var argv       = require('yargs').argv;
-=======
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var sass = require('gulp-sass');
@@ -24,7 +10,7 @@ var webpack = require('webpack-stream');
 var plugin = require('webpack');
 var argv = require('yargs').argv;
 var flatten = require('gulp-flatten');
->>>>>>> Stashed changes
+var clean      = require('gulp-clean');
 
 var ENV = argv.dev ? 'dev' : 'prod';
 var isDev = (ENV === 'dev');
@@ -104,9 +90,6 @@ gulp.task('bundle', ['es6'], function () {
 
 // ES6 - JS build process.
 gulp.task("es6", ['clean-script'], function () {
-	gulp.src('./static/js/vendor/*.js')
-		.pipe(gulp.dest('web/dist'));
-
 	return gulp.src('static/js/*.js')
 		.pipe(babel({
 			presets: ['es2015'],
