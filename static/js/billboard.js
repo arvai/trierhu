@@ -50,7 +50,9 @@ export default class Billboard {
 			let favicon = new Favico({
 				animation:'fade'
 			});
-			let num = moment.duration({ seconds: this.next }).minutes();
+
+			let num = moment.duration({ seconds: this.next }).asMinutes();
+
 			favicon.badge(num);
 		}
 
