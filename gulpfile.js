@@ -3,47 +3,47 @@ var babel = require("gulp-babel");
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
+var rev = require('gulp-rev-all');
+var revdel = require('gulp-rev-delete-original');
+var gulpif = require('gulp-if');
 var webpack = require('webpack-stream');
 var plugin = require('webpack');
-var gulpif = require('gulp-if');
 var argv = require('yargs').argv;
-var rev = require('gulp-rev');
-var revdel = require('gulp-rev-delete-original');
 
-var ENV   = argv.dev ? 'dev' : 'prod';
+var ENV = argv.dev ? 'dev' : 'prod';
 var isDev = (ENV === 'dev');
-var isProd = (ENV === 'prod');
+var buildProcess = [];
 
-// Default task, full build process
-gulp.task('default', ['bundle', 'sass', 'copy']);
+if (ENV === 'dev') {
+	buildProcess = ['sass', 'image', 'bundle'];
+}
+else {
+	buildProcess = ['revision'];
+}
 
-// SASS build
-gulp.task('sass', function() {
-	return gulp.src('static/scss/*.scss')
+// Default task, full build process.
+gulp.task('default', buildProcess);
+
+// SASS build.
+gulp.task('sass', function () {
+	return gulp.src('static/scss/**/*.scss')
 		.pipe(gulpif(isDev, sourcemaps.init()))
-		.pipe(sass({outputStyle: 'compressed'}))
+			.pipe(sass({outputStyle: 'compressed'}))
+			.pipe(concat('site.css'))
 		.pipe(gulpif(isDev, sourcemaps.write()))
-
-		.pipe(concat('site.css'))
-		.pipe(gulpif(isProd, rev()))
-		.pipe(gulpif(isProd, revdel()))
-		.pipe(gulp.dest('bin'))
+		.pipe(gulp.dest('web/dist'))
 });
 
-// ES6 - JS build process
-gulp.task("es6", function () {
-  return gulp.src("static/js/*.js")
-    .pipe(babel({
-			presets: ['es2015'],
-			plugins: ["transform-runtime","syntax-async-functions","transform-regenerator"]
-		}))
-	.pipe(gulp.dest("bin"));
+// SASS build with source map.
+gulp.task('image', function () {
+	return gulp.src('static/img/**/*.*')
+		.pipe(gulp.dest('web/dist'))
 });
 
 // CREATE WEBPACK PLUGINS ARRAY
 var webpackPugins = [];
 // Set variable for the app
-webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"'+ENV+'"'}));
+webpackPugins.push(new plugin.DefinePlugin({'process.env.NODE_ENV': '"' + ENV + '"'}));
 // Uglify bundle on prod
 webpackPugins.push(new plugin.optimize.UglifyJsPlugin());
 // No duplicated dependencies
@@ -52,32 +52,56 @@ webpackPugins.push(new plugin.optimize.DedupePlugin());
 webpackPugins.push(new plugin.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en-gb|hu|ru|hi)/));
 // Provide fetch and promise polyfill from es6-promise and whatwg-fetch package
 webpackPugins.push(new plugin.ProvidePlugin({
-					'Promise': 'exports?global.Promise!es6-promise',
-					'fetch': 'exports?self.fetch!whatwg-fetch'
-				}));
+	'Promise': 'exports?global.Promise!es6-promise',
+	'fetch': 'exports?self.fetch!whatwg-fetch'
+}));
 
-// Create bundle - webpack
-gulp.task('bundle', ['es6'], function() {
-	return gulp.src('bin/index.js')
+// Create bundle - webpack.
+gulp.task('bundle', ['es6'], function () {
+	return gulp.src('static/build/compile/index.js')
 		.pipe(webpack({
 			output: {
-        		filename: "bundle.js"
+				filename: "bundle.js"
 			},
 			plugins: webpackPugins
 		}))
-		.pipe(gulpif(isProd, rev()))
-		.pipe(gulpif(isProd, revdel()))
-		.pipe(gulp.dest('bin/'));
+		.pipe(gulp.dest('web/dist'));
 });
 
-// Watcher task for css and js
-gulp.task('watch', function() {
-	gulp.watch('static/scss/*.scss', ['sass']);
-	gulp.watch('static/js/*.js', ['bundle']);
+// ES6 - JS build process.
+gulp.task("es6", function () {
+	gulp.src('./static/js/vendor/*.js')
+		.pipe(gulp.dest('web/dist'));
+
+	return gulp.src('static/js/*.js')
+		.pipe(babel({
+			presets: ['es2015'],
+			plugins: ["transform-runtime", "syntax-async-functions", "transform-regenerator"]
+		}))
+		.pipe(gulp.dest('static/build/compile'));
 });
 
-// Copy static files to bin directory
-gulp.task('copy', function() {
-	gulp.src('./static/img/*.*')
-    .pipe(gulp.dest('./bin'));
+// Generate static file revisions and rev-manifest.json file.
+gulp.task('revision', ['sass', 'image', 'bundle'], function () {
+	return gulp.src(['web/dist/**', '!web/dist/favicons/**'])
+		.pipe(
+			rev.revision(
+				{
+					includeFilesInManifest: ['.css', '.js', '.png', '.svg'],
+				}
+			)
+		)
+		.pipe(revdel())
+		.pipe(gulp.dest('web/dist'))
+		.pipe(rev.versionFile())
+		.pipe(gulp.dest('static/build'))
+		.pipe(rev.manifestFile())
+		.pipe(gulp.dest('static/build'))
+});
+
+// Watcher task for css and js.
+gulp.task('watch', function () {
+	gulp.watch('static/scss/**/*.scss', ['sass']);
+	gulp.watch('static/js/**/*.js', ['bundle']);
+	gulp.watch('static/img/**/*.*', ['image']);
 });
