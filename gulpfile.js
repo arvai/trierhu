@@ -1,14 +1,15 @@
-var gulp = require('gulp');
-var babel = require("gulp-babel");
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
+var gulp       = require('gulp');
+var babel      = require("gulp-babel");
+var sass       = require('gulp-sass');
+var concat     = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
-var rev = require('gulp-rev-all');
-var revdel = require('gulp-rev-delete-original');
-var gulpif = require('gulp-if');
-var webpack = require('webpack-stream');
-var plugin = require('webpack');
-var argv = require('yargs').argv;
+var rev        = require('gulp-rev-all');
+var revdel     = require('gulp-rev-delete-original');
+var gulpif     = require('gulp-if');
+var clean      = require('gulp-clean');
+var webpack    = require('webpack-stream');
+var plugin     = require('webpack');
+var argv       = require('yargs').argv;
 
 var ENV = argv.dev ? 'dev' : 'prod';
 var isDev = (ENV === 'dev');
@@ -24,8 +25,23 @@ else {
 // Default task, full build process.
 gulp.task('default', buildProcess);
 
+gulp.task('clean-sass', function () {
+	return gulp.src('web/dist/**/*.css', {read: false})
+		.pipe(clean());
+});
+
+gulp.task('clean-image', function () {
+	return gulp.src(['web/dist/**/*.png', 'web/dist/**/*.jpg', 'web/dist/**/*.svg'], {read: false})
+		.pipe(clean());
+});
+
+gulp.task('clean-script', function () {
+	return gulp.src(['web/dist/**/*.js', 'static/build'], {read: false})
+		.pipe(clean());
+});
+
 // SASS build.
-gulp.task('sass', function () {
+gulp.task('sass', ['clean-sass'], function () {
 	return gulp.src('static/scss/**/*.scss')
 		.pipe(gulpif(isDev, sourcemaps.init()))
 			.pipe(sass({outputStyle: 'compressed'}))
@@ -35,7 +51,7 @@ gulp.task('sass', function () {
 });
 
 // SASS build with source map.
-gulp.task('image', function () {
+gulp.task('image', ['clean-image'], function () {
 	return gulp.src('static/img/**/*.*')
 		.pipe(gulp.dest('web/dist'))
 });
@@ -69,7 +85,7 @@ gulp.task('bundle', ['es6'], function () {
 });
 
 // ES6 - JS build process.
-gulp.task("es6", function () {
+gulp.task("es6", ['clean-script'], function () {
 	gulp.src('./static/js/vendor/*.js')
 		.pipe(gulp.dest('web/dist'));
 
