@@ -1,3 +1,7 @@
+# 2016. 10. 28.
+* Include Slick carousel for the What's new section
+* Include Jquery :( for the previous plugin.
+
 # 2016. 10. 23.
 * Build process: copy node_modules' css files to dist
 * SweetAlert message 'Add it to your homescreen' on mobile

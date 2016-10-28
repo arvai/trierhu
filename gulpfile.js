@@ -41,7 +41,7 @@ gulp.task('clean-script', function () {
 });
 
 // SASS build.
-gulp.task('sass', ['clean-sass'], function () {
+gulp.task('sass', function () {
 	return gulp.src('static/scss/**/*.scss')
 		.pipe(gulpif(isDev, sourcemaps.init()))
 			.pipe(sass({outputStyle: 'compressed'}))
@@ -52,7 +52,7 @@ gulp.task('sass', ['clean-sass'], function () {
 
 
 // COPY ASSETS TO DIST
-gulp.task('assets', ['clean-image'], function () {
+gulp.task('assets', function () {
 	return gulp.src(['static/img/**/*.*', 'node_modules/**/*.css'])
 		.pipe(gulp.dest('web/dist'))
 });
@@ -86,7 +86,7 @@ gulp.task('bundle', ['es6'], function () {
 });
 
 // ES6 - JS build process.
-gulp.task("es6", ['clean-script'], function () {
+gulp.task("es6", function () {
 	return gulp.src('static/js/*.js')
 		.pipe(babel({
 			presets: ['es2015'],
