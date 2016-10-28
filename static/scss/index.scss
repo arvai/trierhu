@@ -105,15 +105,18 @@ $brick: #D95B43;
 	}
 
 	.whatsnew {
-		width: 70%;
-		margin: 3rem auto 7rem auto;
-		background: $brick;
-		padding: 1rem;
-		color: #FFF;
-		max-width: 500px;
+		width: 100%;
+		margin: 3rem 0 7rem 0;
 
-		ul {
-			list-style: none;
+		.newItem {
+			background: $brick;
+			padding: 1rem;
+			color: #FFF;
+			margin: 0 2rem;
+
+			a {
+				color: #2d2d2d;
+			}
 
 			h2 {
 				font-size: 2rem;
@@ -138,6 +141,27 @@ $brick: #D95B43;
 			fill: pink;
 			margin: 0 3px;
 			animation: pulse 1s ease infinite;
+		}
+
+		.slick-arrow {
+			position: absolute;
+			z-index: 5;
+			top: 50%;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			border: 0;
+			padding: 1.5rem;
+			background: #008CBA;
+			color: white;
+			font-size: 1.6rem;
+			cursor: pointer;
+		}
+
+		.slick-prev {
+			left: 1rem;
+		}
+		.slick-next {
+			right: 1rem;
 		}
 	}
 

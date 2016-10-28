@@ -2,6 +2,9 @@ import Bootstrap from './bootstrap';
 import * as moment from 'moment';
 import sweetalert from 'sweetalert';
 import isMobile from 'ismobilejs';
+import * as slick from 'slick-carousel';
+import $ from 'jquery';
+
 
 /**
  * Billboard handler class.
@@ -27,7 +30,38 @@ export default class Billboard {
 		this.fillTimeContainers();
 		this.startRefreshInterval();
 		this.alertHomeScreen();
+        this.initSlick();
 	}
+
+	initSlick() {
+	     $('.whatsnew').slick({
+             arrows: true,
+             centerMode: true,
+             variableWidth: true,
+             centerPadding: '60px',
+             slidesToShow: 3,
+             responsive: [
+                 {
+                     breakpoint: 768,
+                     settings: {
+                         arrows: false,
+                         centerMode: true,
+                         centerPadding: '40px',
+                         slidesToShow: 3
+                     }
+                 },
+                 {
+                     breakpoint: 480,
+                     settings: {
+                         arrows: false,
+                         centerMode: true,
+                         centerPadding: '40px',
+                         slidesToShow: 1
+                     }
+                 }
+             ]
+         });
+    }
 
 	/**
 	 * Overlay for raise attention to the 'Add homescreen' function
