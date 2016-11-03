@@ -35,7 +35,7 @@ export default class Billboard {
 
 	initSlick() {
 	     $('.whatsnew').slick({
-             arrows: true,
+             arrows: false,
              centerMode: true,
              variableWidth: true,
              centerPadding: '60px',
