@@ -110,7 +110,9 @@ $brick: #D95B43;
 
 
 				li {
-
+					@media screen and (max-width: 700px) {
+						font-size: 2rem;
+					}
 				}
 			}
 		}
@@ -164,10 +166,11 @@ $brick: #D95B43;
 	}
 }
 
-#hamburger {
-	position: absolute;
-	z-index: 5;
+$hamburger-size: 5rem;
 
+#hamburger {
+	position: fixed;
+	z-index: 5;
 	top: 0;
 	left: 0;
 	background: #FFF;
@@ -179,6 +182,11 @@ $brick: #D95B43;
 		position: relative;
 		width: 3rem;
 		height: 3rem;
+
+		@media screen and (max-width: 700px) {
+			width: $hamburger-size;
+			height: $hamburger-size;
+		}
 
 	}
 	img {
@@ -206,19 +214,25 @@ nav {
 
 	ul {
 		width: 100%;
-		margin-top: 4rem;
+		margin-top: $hamburger-size;
 
 		li {
 			position: relative;
 			font-size: 2rem;
 			height: 4rem;
 			line-height: 4rem;
-			padding-left: 2rem;
 			border-bottom: #5f8272 solid 1px;
 			overflow: hidden;
 			transition: max-height 0.6s;
 
+			@media screen and (max-width: 700px) {
+				font-size: 3rem;
+				height: 6rem;
+				line-height: 6rem;
+			}
+
 			a {
+				padding-left: 2rem;
 				display: block;
 				text-decoration: none;
 				color: #FFF;
