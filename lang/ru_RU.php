@@ -13,4 +13,7 @@ return array(
 		'in'    => 'через',
 		'a_lot' => 'много',
 	),
+	'menu'								=> array(
+			'languages' => 'языки'
+	)
 );

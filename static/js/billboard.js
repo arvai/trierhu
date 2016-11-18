@@ -5,7 +5,6 @@ import isMobile from 'ismobilejs';
 import * as slick from 'slick-carousel';
 import $ from 'jquery';
 
-
 /**
  * Billboard handler class.
  * 'The next bus goes to Trier in...' project
@@ -68,7 +67,7 @@ export default class Billboard {
 	 */
 	alertHomeScreen() {
 		let alreadyShowed = Bootstrap.getCookie('homeScreen');
-		if ( isMobile.any && !alreadyShowed ) {
+		if ( isMobile.any && !Boolean(alreadyShowed) ) {
 			Bootstrap.createCookie('homeScreen', 'true');
 			//@TODO lang later
 			sweetalert("Did you know?", "You can add the application to your home screen!", "info");

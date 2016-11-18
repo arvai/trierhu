@@ -13,4 +13,7 @@ return array(
 		'in'    => 'in',
 		'a_lot' => 'a lot',
 	),
+	'menu'								=> array(
+			'languages' => 'Languages'
+	)
 );

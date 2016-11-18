@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>{{ "meta.title"|trans }}</title>
+
 	<link rel="stylesheet" type="text/css" href="{{ static('sweetalert/dist/sweetalert.css') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
 	<link rel="stylesheet" type="text/css" href="{{ static('site.css') }}"/>
@@ -32,6 +33,10 @@
 </head>
 
 <body class="index">
+
+{% include 'menu.twig' %}
+
+<div class="overlay"></div>
 
 <div class="container">
 

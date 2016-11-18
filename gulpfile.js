@@ -16,7 +16,7 @@ var isDev = (ENV === 'dev');
 var buildProcess = [];
 
 if (ENV === 'dev') {
-	buildProcess = ['sass', 'assets', 'bundle'];
+	buildProcess = ['clean-manifest', 'sass', 'assets', 'bundle'];
 }
 else {
 	buildProcess = ['revision'];
@@ -40,6 +40,11 @@ gulp.task('clean-script', function () {
 		.pipe(clean());
 });
 
+gulp.task('clean-manifest', function () {
+	return gulp.src(['static/build/*.json'], {read: false})
+			.pipe(clean());
+});
+
 // SASS build.
 gulp.task('sass', function () {
 	return gulp.src('static/scss/**/*.scss')
@@ -53,7 +58,7 @@ gulp.task('sass', function () {
 
 // COPY ASSETS TO DIST
 gulp.task('assets', function () {
-	return gulp.src(['static/img/**/*.*', 'node_modules/**/*.css'])
+	return gulp.src(['static/img/**/*.*', 'static/scss/vendor/*.*', 'node_modules/**/*.css'])
 		.pipe(gulp.dest('web/dist'))
 });
 
@@ -75,7 +80,7 @@ webpackPugins.push(new plugin.ProvidePlugin({
 
 // Create bundle - webpack.
 gulp.task('bundle', ['es6'], function () {
-	return gulp.src('static/build/compile/index.js')
+	return gulp.src(['static/build/compile/index.js', 'static/js/vendor/*.js'])
 		.pipe(webpack({
 			output: {
 				filename: "bundle.js"

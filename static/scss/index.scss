@@ -7,30 +7,9 @@ $brick: #D95B43;
 .index {
 	background: url(./bg.png);
 
-	.langs {
-		position: absolute;
-		top: 5px;
-		left: 5px;
-		background: white;
-		padding: 5px 5px 2px 5px;
-
-		a {
-			text-decoration: none;
-			display: inline-block;
-
-			&:nth-child(-n+2) {
-				@media screen and (max-width: 700px) {
-					margin-right: 7px;
-				}
-			}
-		}
-
-		img {
-			display: inline-block;
-			width: 25px!important;
-		}
+	&.overlay-opened {
+		background: url(./bg_blur.jpg);
 	}
-
 
 	.billboard {
 		display: table;
@@ -185,6 +164,127 @@ $brick: #D95B43;
 	}
 }
 
+#hamburger {
+	position: absolute;
+	z-index: 5;
+
+	top: 0;
+	left: 0;
+	background: #FFF;
+	display: inline-block;
+	padding: .5rem;
+
+	a {
+		display: block;
+		position: relative;
+		width: 3rem;
+		height: 3rem;
+
+	}
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+// Menu
+nav {
+	transform: translateX(-100%);
+	z-index: 4;
+	position: absolute;
+	background: $myGreen;
+	width: 30rem;
+	max-width: 80vw;
+
+	&.open {
+		transform: translateX(0);
+
+		& + #hamburger {
+			background: $myGreen;
+		}
+	}
+
+	ul {
+		width: 100%;
+		margin-top: 4rem;
+
+		li {
+			position: relative;
+			font-size: 2rem;
+			height: 4rem;
+			line-height: 4rem;
+			padding-left: 2rem;
+			border-bottom: #5f8272 solid 1px;
+			overflow: hidden;
+			transition: max-height 0.6s;
+
+			a {
+				display: block;
+				text-decoration: none;
+				color: #FFF;
+			}
+
+			&.head {
+				&:after {
+					position: absolute;
+					right: 1rem;
+					top: 0;
+					content: '+';
+				}
+			}
+			&:not(.head) {
+				background: darken($myGreen, 20%);
+				max-height: 0;
+			}
+
+			&.show {
+				height: auto!important;
+				max-height: 50px;
+			}
+			&:not(.head):not(.show) {
+				border:none;
+			}
+
+			.lang {
+				position: absolute;
+				right: 1rem;
+				top: .5rem;
+				line-height: 0;
+				padding: 0.3px;
+				background: none; // Can be changed later
+
+				img {
+					display: inline-block;
+					width: 25px!important;
+				}
+			}
+		}
+	}
+}
+
+.overlay {
+	display: none;
+	z-index: 3;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(#000, 0.8);
+
+	&.show {
+		display: block;
+
+
+		+ .container {
+			filter: blur(5px);
+
+			& + .overlay {
+				display: block;
+			}
+		}
+	}
+}
 @keyframes pulse {
 	0% { transform: scale(1); }
 	50% { transform: scale(1.3); }

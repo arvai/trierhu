@@ -13,4 +13,7 @@ return array(
 		'in'    => 'ekkor',
 		'a_lot' => 'sok!',
 	),
+	'menu'								=> array(
+		'languages' => 'Nyelvek'
+	)
 );
