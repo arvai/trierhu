@@ -1,21 +1,6 @@
 {% extends "default.layout.twig" %}
 
 {% block content %}
-	<!-- Styles for google optimization before css externals loaded and rendered -->
-	<div class="langs">
-		<a href="/?locale=en_GB">
-			<img src="{{ static('gb.svg') }}" alt="fb" title="en" style="max-height: 100px" />
-		</a>
-
-		<a href="?locale=hu_HU">
-			<img src="{{ static('hu.svg') }}" alt="hu" title="hu" style="max-height: 100px"  />
-		</a>
-
-		<a href="?locale=ru_RU">
-			<img src="{{ static('ru.svg') }}" alt="ru" title="ru" style="max-height: 100px" />
-		</a>
-	</div>
-
 	<div class="billboard">
 		<p class="billboard--row billboard--row__brick">{{ "the_next_bus"|trans }}</p>
 		<p class="billboard--row billboard--row__pink">{{ "goes_to_trier"|trans }}*</p>
@@ -29,6 +14,12 @@
 	</div>
 
 	<div class="whatsnew">
+		<div class="newItem">
+			<h2>2016. 11. 18.</h2>
+			<ul>
+				<li>Menu!</li>
+			</ul>
+		</div>
 		<div class="newItem">
 			<h2>2016. 10. 28.</h2>
 			<ul>

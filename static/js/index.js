@@ -1,3 +1,5 @@
 import Billboard from './billboard';
+import Menu from './menu';
 
-new Billboard(); 
+new Menu();
+new Billboard();
