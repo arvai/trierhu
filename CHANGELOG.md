@@ -1,6 +1,7 @@
 # 2016. 11. 18.
 * I tried out some menu plugin
 * I deleted them, and wrote an own quickly.
+* NPM pkg management with Yarn
 
 # 2016. 10. 28.
 * Include Slick carousel for the What's new section
