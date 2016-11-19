@@ -199,7 +199,7 @@ $hamburger-size: 5rem;
 nav {
 	transform: translateX(-100%);
 	z-index: 4;
-	position: absolute;
+	position: fixed;
 	background: $myGreen;
 	width: 30rem;
 	max-width: 80vw;
@@ -212,28 +212,33 @@ nav {
 		}
 	}
 
+	> ul {
+		margin-top: $hamburger-size;
+	}
+
 	ul {
 		width: 100%;
-		margin-top: $hamburger-size;
 
 		li {
 			position: relative;
 			font-size: 2rem;
-			height: 4rem;
+			height: auto;
+			max-height: 4rem;
 			line-height: 4rem;
 			border-bottom: #5f8272 solid 1px;
 			overflow: hidden;
-			transition: max-height 0.6s;
+			transition: max-height 0.6s 0s;
+			-webkit-transition: max-height 0.6s 0s;
 
 			@media screen and (max-width: 700px) {
 				font-size: 3rem;
-				height: 6rem;
+				max-height: 6rem;
 				line-height: 6rem;
 			}
 
 			a {
-				padding-left: 2rem;
 				display: block;
+				padding-left: 2rem;
 				text-decoration: none;
 				color: #FFF;
 			}
@@ -246,15 +251,15 @@ nav {
 					content: '+';
 				}
 			}
-			&:not(.head) {
+			// Submenu
+			li {
 				background: darken($myGreen, 20%);
-				max-height: 0;
 			}
 
 			&.show {
-				height: auto!important;
-				max-height: 50px;
+				max-height: 500px;
 			}
+
 			&:not(.head):not(.show) {
 				border:none;
 			}
@@ -279,7 +284,7 @@ nav {
 .overlay {
 	display: none;
 	z-index: 3;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;

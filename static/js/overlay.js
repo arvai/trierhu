@@ -14,16 +14,22 @@ export default class Overlay {
     close() {
         this.overlayEl.classList.remove('show');
         this.bodyEl.classList.remove('overlay-opened');
+        //this.bodyEl.style.overflow = 'visible';
     }
 
     open() {
         this.overlayEl.classList.add('show');
         this.bodyEl.classList.add('overlay-opened');
+        //this.bodyEl.style.overflow = 'hidden';
     }
 
     toggle() {
-        this.overlayEl.classList.toggle('show');
-        this.bodyEl.classList.toggle('overlay-opened');
+        if (this.bodyEl.classList.contains('overlay-opened')) {
+            this.close();
+        }
+        else {
+            this.open();
+        }
     }
 
     onOverlayClick() {
