@@ -297,6 +297,7 @@ nav {
 
 		+ .container {
 			filter: blur(5px);
+			-webkit-filter: blur(5px);
 
 			& + .overlay {
 				display: block;
