@@ -13,8 +13,9 @@ export default class Menu extends Overlay {
 
         let menuTriggerEl = document.querySelector('#menu_trigger');
         menuTriggerEl.addEventListener('click', this.onMenuTriggerClick.bind(this), false);
-        console.log(this, this.menuHeadEls, this.menuHeadEls.forEach);
-        this.menuHeadEls.forEach(el => el.addEventListener('click', this.onHeadClick.bind(this), false));
+
+        // Later polyfill it
+        Array.prototype.slice.call(this.menuHeadEls).forEach(el => el.addEventListener('click', this.onHeadClick.bind(this), false));
     }
 
     onMenuTriggerClick() {
@@ -29,8 +30,7 @@ export default class Menu extends Overlay {
 
     onHeadClick(ev) {
         let target = $(ev.target).closest('li')[0];
-console.log(this, this.menuHeadEls, this.menuHeadEls.forEach);
-        this.menuHeadEls.forEach(el => el.classList.remove('show'));
+        Array.prototype.slice.call(this.menuHeadEls).forEach(el => el.classList.remove('show'));
         target.classList.add('show');
     }
 }
