@@ -20,26 +20,17 @@ class MobiliteitClient
 		{
 			print $url;
 		}
-
+		
+		$nextBuses = array();
 		$rawContent = file_get_contents($url);
 		$data       = json_decode($rawContent);
-
-		if (isset($data->Departure[0]))
+		
+		foreach($data->Departure as $departure)
 		{
-			$this->nextBus = strtotime($data->Departure[0]->date . ' ' . $data->Departure[0]->time);
-		}
-		else
-		{
-			$this->nextBus = false;
-		}
-
-		if (isset($data->Departure[1]))
-		{
-			$this->afterBus = strtotime($data->Departure[1]->date . ' ' . $data->Departure[1]->time);
-		}
-		else
-		{
-			$this->afterBus = false;
+			$bus = strtotime($departure->date . ' ' . $departure->time);
+			if($bus >= time()) {
+				array_push($nextBuses, $bus);
+			}
 		}
 	}
 
@@ -60,9 +51,9 @@ class MobiliteitClient
 	 */
 	public function getNextToSeconds()
 	{
-		if ($this->nextBus)
+		if (count($this->nextBuses) > 0)
 		{
-			return $this->nextBus - $this->getTime();
+			return $this->nextBuses[0] - $this->getTime();
 		}
 
 		return -1;
@@ -75,9 +66,9 @@ class MobiliteitClient
 	 */
 	public function getAfterToSeconds()
 	{
-		if ($this->afterBus)
+		if (count($this->nextBuses) > 1)
 		{
-			return $this->afterBus - $this->getTime() - $this->getNextToSeconds();
+			return $this->nextBuses[1] - $this->getTime() - $this->getNextToSeconds();
 		}
 
 		return -1;
