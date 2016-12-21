@@ -1,7 +1,7 @@
 <?php
 return array(
 	'meta'                               => array(
-		'title'       => 'Trier.hu - Mikor indul a buszom?',
+		'title'       => 'Trier.hu - Luxembourg 118-as busz Trierbe',
 		'description' => 'Pofonegyszerű webalkamazás arra célra, hogy megnézd, mennyi idő múlva indul a következő busz a munkahelyed előtti buszmegállóból. A dead simple public transport checker web app to check whether should you rush to the bus stop after working hours, or not. Luxembourg Kirchbergben dolgozó, Trierben élők szokásaira optimalizálva.',
 	),
 	'the_next_bus'                       => 'A következő 118-as busz',
