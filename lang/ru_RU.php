@@ -1,7 +1,7 @@
 <?php
 return array(
 	'meta'                               => array(
-		'title'       => 'Trier.hu - When does my bus departs?',
+		'title'       => 'Trier.hu - Luxembourg Bus 118 To Trier',
 		'description' => 'A dead simple public transport web app to check whether should you rush to the closest bus stop after working hours, or not. Optimized for habits of people who work in Kirchberg, Luxembourg, and live in Trier, Germany.',
 	),
 	'the_next_bus'                       => 'Следующий автобус',
