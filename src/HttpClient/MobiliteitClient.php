@@ -21,7 +21,7 @@ class MobiliteitClient
 			print $url;
 		}
 		
-		$nextBuses = array();
+		$this->nextBuses = array();
 		$rawContent = file_get_contents($url);
 		$data       = json_decode($rawContent);
 		
@@ -29,7 +29,7 @@ class MobiliteitClient
 		{
 			$bus = strtotime($departure->date . ' ' . $departure->time);
 			if($bus >= time()) {
-				array_push($nextBuses, $bus);
+				array_push($this->nextBuses, $bus);
 			}
 		}
 	}
