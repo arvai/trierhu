@@ -68,7 +68,7 @@ export default class Billboard {
 	alertHomeScreen() {
 		let alreadyShowed = Bootstrap.getCookie('homeScreen');
 		if ( isMobile.any && !Boolean(alreadyShowed) ) {
-			Bootstrap.createCookie('homeScreen', 'true');
+			Bootstrap.createCookie('homeScreen', 'true', 30);
 			//@TODO lang later
 			sweetalert("Did you know?", "You can add the application to your home screen!", "info");
 		}
