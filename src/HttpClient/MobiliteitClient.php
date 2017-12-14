@@ -2,36 +2,29 @@
 
 namespace TrierHu\Portal\HttpClient;
 
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use RuntimeException;
+
 class MobiliteitClient
 {
+	const STATION_ID_LUXEXPO   = 'A=1@O=Kirchberg, Gare routière Luxexpo@X=6,174331@Y=49,635737@U=82@L=200417050@B=1@';
+	const STATION_ID_TRIER_HFB = 'A=1@O=Trier, Hauptbahnhof@X=6,651577@Y=49,757244@U=82@L=500000079@';
+
+	/** @var Client */
+	private $client;
+
 	public function __construct()
 	{
-		$this->debug = isset($_GET['debug']);
+		$this->debug  = isset($_GET['debug']);
+		$this->client = new Client(
+			[
+				'base_uri' => 'http://travelplanner.mobiliteit.lu/'
+			]
+		);
 
-		$url = 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt';
-		$url .= '&id=A=1@O=Kirchberg,%20John-F.-Kennedy@X=6,171580@Y=49,632366@U=82@L=200417017@B=1@p=1475222989';
-		$url .= '&direction=A=1@O=Trier,%20Theodor-Heuss-Allee@X=6,646148@Y=49,759402@U=82@L=500000083@B=1@p=1475222989';
-		$url .= '&duration=720';
-		// Test weekday if debug enabled
-		$this->debug && $url .= '&time=12:30&date=2016-10-08';
-		$url .= '&format=json';
-
-		if ($this->debug)
-		{
-			print $url;
-		}
-		
-		$this->nextBuses = array();
-		$rawContent = file_get_contents($url);
-		$data       = json_decode($rawContent);
-		
-		foreach($data->Departure as $departure)
-		{
-			$bus = strtotime($departure->date . ' ' . $departure->time);
-			if($bus >= time()) {
-				array_push($this->nextBuses, $bus);
-			}
-		}
+		$this->nextBuses = $this->getProcessedTimeTable();
 	}
 
 	/**
@@ -87,5 +80,60 @@ class MobiliteitClient
 		];
 
 		return json_encode($response);
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getProcessedTimeTable()
+	{
+		try
+		{
+			$rawData       = \GuzzleHttp\json_decode($this->getBusTimeTableForStation(), true);
+			$timeList      = array_column($rawData['Departure'],'date', 'time');
+			$timestampList = [];
+			foreach ($timeList as $date => $time)
+			{
+				$timestampList[] = strtotime($date . ' ' . $time);
+			}
+
+			return $timestampList;
+		}
+		catch (Exception $exception)
+		{
+			return [];
+		}
+	}
+
+	/**
+	 * @param string $fromStopId
+	 * @param string $toStopId
+	 * @param int    $inNextHours
+	 *
+	 * @internal param string $stopId
+	 * @return   string
+	 *
+	 * @throws RuntimeException
+	 */
+	private function getBusTimeTableForStation(
+			$fromStopId = self::STATION_ID_LUXEXPO,
+			$toStopId = self::STATION_ID_TRIER_HFB,
+			$inNextHours = 2
+	) {
+		$parameterList = [
+			'accessId'  => 'cdt',
+			'id'        => $fromStopId,
+			'direction' => $toStopId,
+			'duration'  => $inNextHours * 60,
+			'format'    => 'json'
+		];
+
+		return $this->client->get(
+			'restproxy/departureBoard',
+			[
+				RequestOptions::QUERY => $parameterList
+			]
+		)->getBody()
+		->getContents();
 	}
 }
